@@ -226,6 +226,7 @@
 		CE6026DD1FF4AE760089F2CA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = DGB;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = USER;
 				TargetAttributes = {
