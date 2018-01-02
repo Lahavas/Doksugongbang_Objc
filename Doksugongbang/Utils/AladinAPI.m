@@ -14,14 +14,9 @@
 
 #pragma mark - Class Methods
 
-+ (NSURL *)aladinApiURLWithMethod:(NSString *)method parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters {
-    
-    // Using urlComponent for generate URL
-    
-    NSMutableString *urlString = [[AladinConfig aladinBaseURLString] mutableCopy];
-    [urlString appendString:method];
-    
-    NSURLComponents *urlComponent = [NSURLComponents componentsWithString:urlString];
++ (NSURL *)aladinApiURLWithPath:(NSString *)path parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters {
+    NSString *urlBaseString = [AladinConfig aladinBaseURLString];
+    NSURLComponents *urlComponent = [NSURLComponents componentsWithString:urlBaseString];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [[NSMutableArray alloc] init];
     
@@ -46,10 +41,13 @@
         }];
     }
     
+    [urlComponent setPath:path];
     [urlComponent setQueryItems:queryItems];
     NSURL *url = urlComponent.URL;
     
     return url;
 }
+
+
 
 @end

@@ -12,6 +12,6 @@
 
 #pragma mark - Class Methods
 
-+ (NSURL *)aladinApiURLWithMethod:(NSString *)method parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters;
++ (NSURL *)aladinApiURLWithPath:(NSString *)path parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters;
 
 @end
