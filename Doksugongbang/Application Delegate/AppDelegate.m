@@ -8,6 +8,12 @@
 
 #import "AppDelegate.h"
 
+#import "DGBHomeViewController.h"
+#import "DGBSearchViewController.h"
+#import "DGBFeedViewController.h"
+#import "DGBBookLogListViewController.h"
+#import "DGBUserInfoViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -19,9 +25,45 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    
+    DGBHomeViewController *homeViewController = [[DGBHomeViewController alloc] init];
+    DGBSearchViewController *searchViewController = [[DGBSearchViewController alloc] init];
+    DGBFeedViewController *feedViewController = [[DGBFeedViewController alloc] init];
+    DGBBookLogListViewController *bookLogListViewController = [[DGBBookLogListViewController alloc] init];
+    DGBUserInfoViewController *userInfoViewController = [[DGBUserInfoViewController alloc] init];
+    
+    UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    UINavigationController *searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    UINavigationController *feedNavigationController = [[UINavigationController alloc] initWithRootViewController:feedViewController];
+    UINavigationController *bookLogNavigationController = [[UINavigationController alloc] initWithRootViewController:bookLogListViewController];
+    UINavigationController *userInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:userInfoViewController];
+    
+    [homeNavigationController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"홈 화면"
+                                                                          image:[UIImage imageNamed:@"HomeIcon"]
+                                                                            tag:0]];
+    [searchNavigationController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"검색"
+                                                                            image:[UIImage imageNamed:@"SearchIcon"]
+                                                                              tag:1]];
+    [feedNavigationController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"피드"
+                                                                          image:[UIImage imageNamed:@"FeedIcon"]
+                                                                            tag:2]];
+    [bookLogNavigationController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"북 로그"
+                                                                             image:[UIImage imageNamed:@"LogIcon"]
+                                                                               tag:3]];
+    [userInfoNavigationController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"내 정보"
+                                                                              image:[UIImage imageNamed:@"UserIcon"]
+                                                                                tag:4]];
+    
+    [tabBarController setViewControllers:@[homeNavigationController,
+                                           searchNavigationController,
+                                           feedNavigationController,
+                                           bookLogNavigationController,
+                                           userInfoNavigationController]];
+    
+    [self.window setRootViewController:tabBarController];
+    
     [self.window setBackgroundColor:[UIColor whiteColor]];
-    
-    
     [self.window makeKeyAndVisible];
     
     return YES;

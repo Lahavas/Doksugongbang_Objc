@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE29F4541FFB1D4C00493711 /* DGBHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F4521FFB1D4C00493711 /* DGBHomeViewController.m */; };
+		CE29F4551FFB1D4C00493711 /* DGBHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE29F4531FFB1D4C00493711 /* DGBHomeViewController.xib */; };
+		CE29F4591FFB1D6900493711 /* DGBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F4571FFB1D6900493711 /* DGBSearchViewController.m */; };
+		CE29F45A1FFB1D6900493711 /* DGBSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE29F4581FFB1D6900493711 /* DGBSearchViewController.xib */; };
+		CE29F45E1FFB1DC200493711 /* DGBFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F45C1FFB1DC200493711 /* DGBFeedViewController.m */; };
+		CE29F45F1FFB1DC200493711 /* DGBFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE29F45D1FFB1DC200493711 /* DGBFeedViewController.xib */; };
+		CE29F4631FFB1E5000493711 /* DGBBookLogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F4611FFB1E5000493711 /* DGBBookLogListViewController.m */; };
+		CE29F4641FFB1E5000493711 /* DGBBookLogListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE29F4621FFB1E5000493711 /* DGBBookLogListViewController.xib */; };
+		CE29F4681FFB1E7000493711 /* DGBUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F4661FFB1E7000493711 /* DGBUserInfoViewController.m */; };
+		CE29F4691FFB1E7000493711 /* DGBUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE29F4671FFB1E7000493711 /* DGBUserInfoViewController.xib */; };
 		CE6026EA1FF4AE760089F2CA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6026E91FF4AE760089F2CA /* AppDelegate.m */; };
 		CE6026F21FF4AE760089F2CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6026F11FF4AE760089F2CA /* Assets.xcassets */; };
 		CE6026F51FF4AE760089F2CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE6026F31FF4AE760089F2CA /* LaunchScreen.storyboard */; };
@@ -33,6 +43,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE29F4511FFB1D4C00493711 /* DGBHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBHomeViewController.h; sourceTree = "<group>"; };
+		CE29F4521FFB1D4C00493711 /* DGBHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBHomeViewController.m; sourceTree = "<group>"; };
+		CE29F4531FFB1D4C00493711 /* DGBHomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DGBHomeViewController.xib; sourceTree = "<group>"; };
+		CE29F4561FFB1D6900493711 /* DGBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBSearchViewController.h; sourceTree = "<group>"; };
+		CE29F4571FFB1D6900493711 /* DGBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBSearchViewController.m; sourceTree = "<group>"; };
+		CE29F4581FFB1D6900493711 /* DGBSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DGBSearchViewController.xib; sourceTree = "<group>"; };
+		CE29F45B1FFB1DC200493711 /* DGBFeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBFeedViewController.h; sourceTree = "<group>"; };
+		CE29F45C1FFB1DC200493711 /* DGBFeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBFeedViewController.m; sourceTree = "<group>"; };
+		CE29F45D1FFB1DC200493711 /* DGBFeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DGBFeedViewController.xib; sourceTree = "<group>"; };
+		CE29F4601FFB1E5000493711 /* DGBBookLogListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookLogListViewController.h; sourceTree = "<group>"; };
+		CE29F4611FFB1E5000493711 /* DGBBookLogListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookLogListViewController.m; sourceTree = "<group>"; };
+		CE29F4621FFB1E5000493711 /* DGBBookLogListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DGBBookLogListViewController.xib; sourceTree = "<group>"; };
+		CE29F4651FFB1E7000493711 /* DGBUserInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBUserInfoViewController.h; sourceTree = "<group>"; };
+		CE29F4661FFB1E7000493711 /* DGBUserInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBUserInfoViewController.m; sourceTree = "<group>"; };
+		CE29F4671FFB1E7000493711 /* DGBUserInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DGBUserInfoViewController.xib; sourceTree = "<group>"; };
 		CE6026E51FF4AE760089F2CA /* Doksugongbang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doksugongbang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6026E81FF4AE760089F2CA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE6026E91FF4AE760089F2CA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -76,6 +101,21 @@
 		CE17F8761FF5D25300B7694A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE29F4511FFB1D4C00493711 /* DGBHomeViewController.h */,
+				CE29F4521FFB1D4C00493711 /* DGBHomeViewController.m */,
+				CE29F4531FFB1D4C00493711 /* DGBHomeViewController.xib */,
+				CE29F4561FFB1D6900493711 /* DGBSearchViewController.h */,
+				CE29F4571FFB1D6900493711 /* DGBSearchViewController.m */,
+				CE29F4581FFB1D6900493711 /* DGBSearchViewController.xib */,
+				CE29F45B1FFB1DC200493711 /* DGBFeedViewController.h */,
+				CE29F45C1FFB1DC200493711 /* DGBFeedViewController.m */,
+				CE29F45D1FFB1DC200493711 /* DGBFeedViewController.xib */,
+				CE29F4601FFB1E5000493711 /* DGBBookLogListViewController.h */,
+				CE29F4611FFB1E5000493711 /* DGBBookLogListViewController.m */,
+				CE29F4621FFB1E5000493711 /* DGBBookLogListViewController.xib */,
+				CE29F4651FFB1E7000493711 /* DGBUserInfoViewController.h */,
+				CE29F4661FFB1E7000493711 /* DGBUserInfoViewController.m */,
+				CE29F4671FFB1E7000493711 /* DGBUserInfoViewController.xib */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -271,7 +311,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE29F4691FFB1E7000493711 /* DGBUserInfoViewController.xib in Resources */,
+				CE29F4551FFB1D4C00493711 /* DGBHomeViewController.xib in Resources */,
+				CE29F45F1FFB1DC200493711 /* DGBFeedViewController.xib in Resources */,
+				CE29F4641FFB1E5000493711 /* DGBBookLogListViewController.xib in Resources */,
 				CE6026F51FF4AE760089F2CA /* LaunchScreen.storyboard in Resources */,
+				CE29F45A1FFB1D6900493711 /* DGBSearchViewController.xib in Resources */,
 				CE6026F21FF4AE760089F2CA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,8 +342,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE29F4681FFB1E7000493711 /* DGBUserInfoViewController.m in Sources */,
 				CE6026F81FF4AE760089F2CA /* main.m in Sources */,
+				CE29F45E1FFB1DC200493711 /* DGBFeedViewController.m in Sources */,
+				CE29F4631FFB1E5000493711 /* DGBBookLogListViewController.m in Sources */,
 				CE6026EA1FF4AE760089F2CA /* AppDelegate.m in Sources */,
+				CE29F4591FFB1D6900493711 /* DGBSearchViewController.m in Sources */,
+				CE29F4541FFB1D4C00493711 /* DGBHomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
