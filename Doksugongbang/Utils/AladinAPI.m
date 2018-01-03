@@ -10,11 +10,11 @@
 #import "AladinConfig.h"
 #import "DGBBook.h"
 
-@implementation AladinAPI
+static NSString * const kAladinAPIItemSearchString = @"/ttb/api/ItemSearch.aspx";
+static NSString * const kAladinAPIItemListString = @"/ttb/api/ItemList.aspx";
+static NSString * const kAladinAPIItemLookUpString = @"/ttb/api/ItemLookUp.aspx";
 
-static NSString * const AladinAPIItemSearchString = @"/ttb/api/ItemSearch.aspx";
-static NSString * const AladinAPIItemListString = @"/ttb/api/ItemList.aspx";
-static NSString * const AladinAPIItemLookUpString = @"/ttb/api/ItemLookUp.aspx";
+@implementation AladinAPI
 
 #pragma mark - URL Generator Methods
 
@@ -90,13 +90,13 @@ static NSString * const AladinAPIItemLookUpString = @"/ttb/api/ItemLookUp.aspx";
     
     switch (pathName) {
         case AladinAPIItemSearch:
-            pathString = AladinAPIItemSearchString;
+            pathString = kAladinAPIItemSearchString;
             break;
         case AladinAPIItemList:
-            pathString = AladinAPIItemListString;
+            pathString = kAladinAPIItemListString;
             break;
         case AladinAPIItemLookUp:
-            pathString = AladinAPIItemLookUpString;
+            pathString = kAladinAPIItemLookUpString;
             break;
         default:
             pathString = [[NSString alloc] init];
