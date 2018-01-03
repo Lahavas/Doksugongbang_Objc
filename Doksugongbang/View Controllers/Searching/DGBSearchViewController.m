@@ -8,10 +8,11 @@
 
 #import "DGBSearchViewController.h"
 #import "DGBBook.h"
+#import "DGBBookListViewController.h"
 #import "DGBBookTitleTableViewCell.h"
 #import "AladinAPI.h"
 
-@interface DGBSearchViewController () <UISearchResultsUpdating, UITableViewDelegate, UITableViewDataSource>
+@interface DGBSearchViewController () <UISearchResultsUpdating, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 
 #pragma mark - Private Properties
 
@@ -35,15 +36,22 @@
     
     self.bookList = [[NSArray alloc] init];
     
+    [self setDefinesPresentationContext:YES];
+    
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    
     [self.searchController setSearchResultsUpdater:self];
-    [self.searchController setObscuresBackgroundDuringPresentation:false];
+    [self.searchController setObscuresBackgroundDuringPresentation:NO];
+    
     [self.searchController.searchBar setPlaceholder:@"책, 저자, 출판사 검색"];
+    [self.searchController.searchBar setDelegate:self];
+    
     [self.navigationItem setSearchController:self.searchController];
     [self.navigationItem setHidesSearchBarWhenScrolling:NO];
     
     self.searchResultTableView = [[UITableView alloc] initWithFrame:CGRectZero
                                                               style:UITableViewStylePlain];
+    
     [self.searchResultTableView setDelegate:self];
     [self.searchResultTableView setDataSource:self];
     
@@ -75,7 +83,15 @@
                                               searchResultTableViewTrailingConstraint]];
 }
 
-- (void)fetchSearchedBookTitleWithQueryString:(NSString *)queryString {
+- (void)pushBookListControllerWithTitle:(NSString *)title {
+    DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
+    [bookListViewController setBookTitle:title];
+    
+    [self showViewController:bookListViewController
+                      sender:self];
+}
+
+- (void)fetchBookTitleWithQueryString:(NSString *)queryString {
     NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
                                           parameters:@{@"Query": queryString,
                                                        @"QueryType": @"Keyword",
@@ -103,11 +119,19 @@
     NSString *searchString = searchController.searchBar.text;
     
     if (searchString.length > 0) {
-        [self fetchSearchedBookTitleWithQueryString:searchString];
+        [self fetchBookTitleWithQueryString:searchString];
     } else {
         self.bookList = nil;
         [self.searchResultTableView reloadData];
     }
+}
+
+#pragma mark - Search Bar Delegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSString *bookTitle = searchBar.text;
+    
+    [self pushBookListControllerWithTitle:bookTitle];
 }
 
 #pragma mark - Table View Delegate
@@ -118,6 +142,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44.0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DGBBook *book = self.bookList[indexPath.row];
+    
+    [self pushBookListControllerWithTitle:book.title];
 }
 
 #pragma mark - Table View Data Source
