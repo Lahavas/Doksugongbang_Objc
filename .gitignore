@@ -76,4 +76,8 @@ iOSInjectionProject/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 
+### Configuration Files ###
+
+Doksugongbang/Configurations/*
+
 # End of https://www.gitignore.io/api/xcode,objective-c
