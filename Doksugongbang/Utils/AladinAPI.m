@@ -71,8 +71,6 @@ static NSString * const AladinAPIItemLookUpString = @"/ttb/api/ItemLookUp.aspx";
                                                                      error:nil];
     NSArray *items = jsonDictionary[@"item"];
     
-    NSLog(@"%@", items);
-    
     NSMutableArray<DGBBook *> *bookList = [[NSMutableArray alloc] init];
     
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
