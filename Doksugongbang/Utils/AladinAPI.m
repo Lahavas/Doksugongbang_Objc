@@ -12,11 +12,15 @@
 
 @implementation AladinAPI
 
-#pragma mark - Class Methods
+static NSString * const AladinApiItemSearchString = @"/ttb/api/ItemSearch.aspx";
+static NSString * const AladinApiItemListString = @"/ttb/api/ItemList.aspx";
+static NSString * const AladinApiItemLookUpString = @"/ttb/api/ItemLookUp.aspx";
 
-+ (NSURL *)aladinApiURLWithPath:(NSString *)path parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters {
-    NSString *urlBaseString = AladinConfig.aladinBaseURLString;
-    NSURLComponents *urlComponent = [NSURLComponents componentsWithString:urlBaseString];
+#pragma mark - URL Generator Methods
+
++ (NSURL *)aladinApiURLWithPathName:(AladinApiPathName)pathName parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters {
+    NSString *aladinBaseUrlString = AladinConfig.aladinBaseURLString;
+    NSURLComponents *aladinApiUrlComponent = [NSURLComponents componentsWithString:aladinBaseUrlString];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [[NSMutableArray alloc] init];
     
@@ -40,12 +44,14 @@
         }];
     }
     
-    [urlComponent setPath:path];
-    [urlComponent setQueryItems:queryItems];
-    NSURL *url = urlComponent.URL;
+    [aladinApiUrlComponent setPath:[self pathStringFromPathName:pathName]];
+    [aladinApiUrlComponent setQueryItems:queryItems];
+    NSURL *aladinApiUrl = aladinApiUrlComponent.URL;
     
-    return url;
+    return aladinApiUrl;
 }
+
+#pragma mark - Book Parser Methods
 
 + (DGBBook *)bookParsingFromJSONData:(NSData *)data {
     NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data
@@ -77,6 +83,29 @@
     }];
     
     return bookList;
+}
+
+#pragma mark - Private Class Methods
+
++ (NSString *)pathStringFromPathName:(AladinApiPathName)pathName {
+    NSString *pathString;
+    
+    switch (pathName) {
+        case AladinApiItemSearch:
+            pathString = AladinApiItemSearchString;
+            break;
+        case AladinApiItemList:
+            pathString = AladinApiItemListString;
+            break;
+        case AladinApiItemLookUp:
+            pathString = AladinApiItemLookUpString;
+            break;
+        default:
+            pathString = [[NSString alloc] init];
+            break;
+    }
+    
+    return pathString;
 }
 
 @end
