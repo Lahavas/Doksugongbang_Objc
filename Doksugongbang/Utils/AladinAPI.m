@@ -21,9 +21,8 @@
     NSMutableArray<NSURLQueryItem *> *queryItems = [[NSMutableArray alloc] init];
     
     NSDictionary<NSString *, NSString *> *baseParameters = @{@"ttbKey": AladinConfig.ttbKey,
-                                                             @"output": @"js",
-                                                             @"Version": AladinConfig.aladinVersion,
-                                                             @"Cover": @"Big"};
+                                                             @"output": AladinConfig.output,
+                                                             @"Version": AladinConfig.aladinVersion};
     
     [baseParameters enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:key
