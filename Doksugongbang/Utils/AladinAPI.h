@@ -10,17 +10,17 @@
 
 @class DGBBook;
 
-typedef NS_ENUM(NSUInteger, AladinApiPathName) {
-    AladinApiItemSearch = 0,
-    AladinApiItemList = 1,
-    AladinApiItemLookUp = 2
+typedef NS_ENUM(NSUInteger, AladinAPIPathName) {
+    AladinAPIItemSearch = 0,
+    AladinAPIItemList = 1,
+    AladinAPIItemLookUp = 2
 };
 
 @interface AladinAPI : NSObject
 
 #pragma mark - URL Generator Methods
 
-+ (NSURL *)aladinApiURLWithPathName:(AladinApiPathName)pathName parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters;
++ (NSURL *)aladinAPIURLWithPathName:(AladinAPIPathName)pathName parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters;
 
 #pragma mark - Book Parser Methods
 

@@ -12,15 +12,15 @@
 
 @implementation AladinAPI
 
-static NSString * const AladinApiItemSearchString = @"/ttb/api/ItemSearch.aspx";
-static NSString * const AladinApiItemListString = @"/ttb/api/ItemList.aspx";
-static NSString * const AladinApiItemLookUpString = @"/ttb/api/ItemLookUp.aspx";
+static NSString * const AladinAPIItemSearchString = @"/ttb/api/ItemSearch.aspx";
+static NSString * const AladinAPIItemListString = @"/ttb/api/ItemList.aspx";
+static NSString * const AladinAPIItemLookUpString = @"/ttb/api/ItemLookUp.aspx";
 
 #pragma mark - URL Generator Methods
 
-+ (NSURL *)aladinApiURLWithPathName:(AladinApiPathName)pathName parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters {
-    NSString *aladinBaseUrlString = AladinConfig.aladinBaseURLString;
-    NSURLComponents *aladinApiUrlComponent = [NSURLComponents componentsWithString:aladinBaseUrlString];
++ (NSURL *)aladinAPIURLWithPathName:(AladinAPIPathName)pathName parameters:(NSDictionary<NSString *, NSString *> *)additionalParameters {
+    NSString *aladinBaseURLString = AladinConfig.aladinBaseURLString;
+    NSURLComponents *aladinAPIURLComponent = [NSURLComponents componentsWithString:aladinBaseURLString];
     
     NSMutableArray<NSURLQueryItem *> *queryItems = [[NSMutableArray alloc] init];
     
@@ -44,11 +44,11 @@ static NSString * const AladinApiItemLookUpString = @"/ttb/api/ItemLookUp.aspx";
         }];
     }
     
-    [aladinApiUrlComponent setPath:[self pathStringFromPathName:pathName]];
-    [aladinApiUrlComponent setQueryItems:queryItems];
-    NSURL *aladinApiUrl = aladinApiUrlComponent.URL;
+    [aladinAPIURLComponent setPath:[self pathStringFromPathName:pathName]];
+    [aladinAPIURLComponent setQueryItems:queryItems];
+    NSURL *aladinAPIURL = aladinAPIURLComponent.URL;
     
-    return aladinApiUrl;
+    return aladinAPIURL;
 }
 
 #pragma mark - Book Parser Methods
@@ -87,18 +87,18 @@ static NSString * const AladinApiItemLookUpString = @"/ttb/api/ItemLookUp.aspx";
 
 #pragma mark - Private Class Methods
 
-+ (NSString *)pathStringFromPathName:(AladinApiPathName)pathName {
++ (NSString *)pathStringFromPathName:(AladinAPIPathName)pathName {
     NSString *pathString;
     
     switch (pathName) {
-        case AladinApiItemSearch:
-            pathString = AladinApiItemSearchString;
+        case AladinAPIItemSearch:
+            pathString = AladinAPIItemSearchString;
             break;
-        case AladinApiItemList:
-            pathString = AladinApiItemListString;
+        case AladinAPIItemList:
+            pathString = AladinAPIItemListString;
             break;
-        case AladinApiItemLookUp:
-            pathString = AladinApiItemLookUpString;
+        case AladinAPIItemLookUp:
+            pathString = AladinAPIItemLookUpString;
             break;
         default:
             pathString = [[NSString alloc] init];
