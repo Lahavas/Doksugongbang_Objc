@@ -18,7 +18,7 @@
     [descriptionString appendFormat:@"\nBook Title : %@", _title];
     [descriptionString appendFormat:@"\nAuthor : %@", _author];
     [descriptionString appendFormat:@"\nPublisher : %@", _publisher];
-    [descriptionString appendFormat:@"\nPubdate : %@", _pubdate];
+    [descriptionString appendFormat:@"\nPublishing Date : %@", _pubDate];
     [descriptionString appendFormat:@"\nISBN : %@", _isbn];
     [descriptionString appendFormat:@"\nBook Page : %ld", _page];
     [descriptionString appendFormat:@"\nCategory : %@", _category];
@@ -32,10 +32,10 @@
 #pragma mark - Initialization
 
 - (instancetype)init {
-    return [self initFromJSON:nil];
+    return [self initWithJSON:nil];
 }
 
-- (instancetype)initFromJSON:(NSDictionary<NSString *, id> *)json {
+- (instancetype)initWithJSON:(NSDictionary *)json {
     self = [super init];
     
     if (self) {
@@ -46,7 +46,7 @@
         _title = json[@"title"];
         _author = json[@"author"];
         _publisher = json[@"publisher"];
-        _pubdate = json[@"pubdate"];
+        _pubDate = json[@"pubDate"];
         
         _page = [subInfo[@"itemPage"] unsignedIntegerValue];
         _category = json[@"categoryName"];

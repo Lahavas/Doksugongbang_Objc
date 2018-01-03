@@ -55,7 +55,7 @@
     NSArray *items = jsonDictionary[@"item"];
     NSDictionary *item = items[0];
     
-    DGBBook *book = [[DGBBook alloc] initFromJSON:item];
+    DGBBook *book = [[DGBBook alloc] initWithJSON:item];
     
     return book;
 }
@@ -66,11 +66,13 @@
                                                                      error:nil];
     NSArray *items = jsonDictionary[@"item"];
     
+    NSLog(@"%@", items);
+    
     NSMutableArray<DGBBook *> *bookList = [[NSMutableArray alloc] init];
     
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[NSDictionary class]]) {
-            DGBBook *book = [[DGBBook alloc] initFromJSON:obj];
+            DGBBook *book = [[DGBBook alloc] initWithJSON:obj];
             [bookList addObject:book];
         }
     }];

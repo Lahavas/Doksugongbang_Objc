@@ -17,7 +17,7 @@
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *author;
 @property (copy, nonatomic) NSString *publisher;
-@property (copy, nonatomic) NSString *pubdate;
+@property (strong, nonatomic) NSDate *pubDate;
 
 @property (assign, nonatomic) NSUInteger page;
 @property (copy, nonatomic) NSString *category;
@@ -28,6 +28,6 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initFromJSON:(NSDictionary<NSString *, id> *)json;
+- (instancetype)initWithJSON:(NSDictionary *)json;
 
 @end
