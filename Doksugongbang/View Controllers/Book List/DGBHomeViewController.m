@@ -1,18 +1,18 @@
 //
-//  DGBSearchViewController.m
+//  DGBHomeViewController.m
 //  Doksugongbang
 //
 //  Created by USER on 2018. 1. 2..
 //  Copyright © 2018년 USER. All rights reserved.
 //
 
-#import "DGBSearchViewController.h"
+#import "DGBHomeViewController.h"
 
-@interface DGBSearchViewController ()
+@interface DGBHomeViewController ()
 
 @end
 
-@implementation DGBSearchViewController
+@implementation DGBHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
