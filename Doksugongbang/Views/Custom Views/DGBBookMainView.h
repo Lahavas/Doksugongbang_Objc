@@ -22,6 +22,8 @@
 @property (strong, nonatomic) UILabel *authorLabel;
 @property (strong, nonatomic) UILabel *publisherLabel;
 @property (strong, nonatomic) UILabel *pubDateLabel;
+@property (strong, nonatomic) UIButton *likeButton;
+@property (strong, nonatomic) UIButton *bookButton;
 
 #pragma mark - Public Methods
 
