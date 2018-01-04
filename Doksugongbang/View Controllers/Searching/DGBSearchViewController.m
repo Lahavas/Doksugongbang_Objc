@@ -36,6 +36,17 @@
     
     self.bookList = [[NSArray alloc] init];
     
+    [self setUpSearchController];
+    [self setUpSearchResultTableView];
+    
+    [self.view addSubview:self.searchResultTableView];
+    
+    [self setUpConstraints];
+}
+
+#pragma mark - Private Methods
+
+- (void)setUpSearchController {
     [self setDefinesPresentationContext:YES];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -48,7 +59,9 @@
     
     [self.navigationItem setSearchController:self.searchController];
     [self.navigationItem setHidesSearchBarWhenScrolling:NO];
-    
+}
+
+- (void)setUpSearchResultTableView {
     self.searchResultTableView = [[UITableView alloc] initWithFrame:CGRectZero
                                                               style:UITableViewStylePlain];
     
@@ -56,16 +69,10 @@
     [self.searchResultTableView setDataSource:self];
     
     UINib *bookTitleCellNib = [UINib nibWithNibName:[DGBBookTitleTableViewCell className]
-                                                      bundle:nil];
+                                             bundle:nil];
     [self.searchResultTableView registerNib:bookTitleCellNib
                      forCellReuseIdentifier:[DGBBookTitleTableViewCell className]];
-    
-    [self.view addSubview:self.searchResultTableView];
-    
-    [self setUpConstraints];
 }
-
-#pragma mark - Private Methods
 
 - (void)setUpConstraints {
     [self.searchResultTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -161,13 +168,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DGBBookTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[DGBBookTitleTableViewCell className]
-                                                                              forIndexPath:indexPath];
+    DGBBookTitleTableViewCell *bookTitleTableViewCell = [tableView dequeueReusableCellWithIdentifier:[DGBBookTitleTableViewCell className]
+                                                                                        forIndexPath:indexPath];
     
     DGBBook *book = self.bookList[indexPath.row];
-    [cell.bookTitleLabel setText:book.title];
+    [bookTitleTableViewCell.bookTitleLabel setText:book.title];
     
-    return cell;
+    return bookTitleTableViewCell;
 }
 
 @end
