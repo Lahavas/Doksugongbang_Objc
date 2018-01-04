@@ -25,8 +25,13 @@
 		CE6026F81FF4AE760089F2CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6026F71FF4AE760089F2CA /* main.m */; };
 		CE6027021FF4AE760089F2CA /* DoksugongbangTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6027011FF4AE760089F2CA /* DoksugongbangTests.m */; };
 		CE60270D1FF4AE760089F2CA /* DoksugongbangUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE60270C1FF4AE760089F2CA /* DoksugongbangUITests.m */; };
+		CE7B76771FFDC28200B2B58A /* DGBBookListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7B76751FFDC28200B2B58A /* DGBBookListTableViewCell.m */; };
+		CE7B76781FFDC28200B2B58A /* DGBBookListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7B76761FFDC28200B2B58A /* DGBBookListTableViewCell.xib */; };
+		CE7B76811FFDF30B00B2B58A /* DGBBookCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7B76801FFDF30B00B2B58A /* DGBBookCoverView.m */; };
 		CE9457961FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9457941FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.m */; };
 		CE9457971FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE9457951FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.xib */; };
+		CE94579C1FFCC8F400D1D5D0 /* DGBBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE94579B1FFCC8F400D1D5D0 /* DGBBookListViewController.m */; };
+		CE9457A01FFCDAE700D1D5D0 /* DGBBookMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE94579F1FFCDAE700D1D5D0 /* DGBBookMainView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,9 +85,18 @@
 		CE6027081FF4AE760089F2CA /* DoksugongbangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoksugongbangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE60270C1FF4AE760089F2CA /* DoksugongbangUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoksugongbangUITests.m; sourceTree = "<group>"; };
 		CE60270E1FF4AE760089F2CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE7B76741FFDC28200B2B58A /* DGBBookListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookListTableViewCell.h; sourceTree = "<group>"; };
+		CE7B76751FFDC28200B2B58A /* DGBBookListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookListTableViewCell.m; sourceTree = "<group>"; };
+		CE7B76761FFDC28200B2B58A /* DGBBookListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DGBBookListTableViewCell.xib; sourceTree = "<group>"; };
+		CE7B767F1FFDF30B00B2B58A /* DGBBookCoverView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookCoverView.h; sourceTree = "<group>"; };
+		CE7B76801FFDF30B00B2B58A /* DGBBookCoverView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookCoverView.m; sourceTree = "<group>"; };
 		CE9457931FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookTitleTableViewCell.h; sourceTree = "<group>"; };
 		CE9457941FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookTitleTableViewCell.m; sourceTree = "<group>"; };
 		CE9457951FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DGBBookTitleTableViewCell.xib; sourceTree = "<group>"; };
+		CE94579A1FFCC8F400D1D5D0 /* DGBBookListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookListViewController.h; sourceTree = "<group>"; };
+		CE94579B1FFCC8F400D1D5D0 /* DGBBookListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookListViewController.m; sourceTree = "<group>"; };
+		CE94579E1FFCDAE700D1D5D0 /* DGBBookMainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookMainView.h; sourceTree = "<group>"; };
+		CE94579F1FFCDAE700D1D5D0 /* DGBBookMainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookMainView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +165,7 @@
 		CE17F8791FF5D3C800B7694A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CE94579D1FFCDA1300D1D5D0 /* Custom Views */,
 				CE9457921FFCB1F400D1D5D0 /* Table View Cells */,
 			);
 			path = Views;
@@ -241,6 +256,9 @@
 				CE9457931FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.h */,
 				CE9457941FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.m */,
 				CE9457951FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.xib */,
+				CE7B76741FFDC28200B2B58A /* DGBBookListTableViewCell.h */,
+				CE7B76751FFDC28200B2B58A /* DGBBookListTableViewCell.m */,
+				CE7B76761FFDC28200B2B58A /* DGBBookListTableViewCell.xib */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -260,8 +278,21 @@
 				CE29F4511FFB1D4C00493711 /* DGBHomeViewController.h */,
 				CE29F4521FFB1D4C00493711 /* DGBHomeViewController.m */,
 				CE29F4531FFB1D4C00493711 /* DGBHomeViewController.xib */,
+				CE94579A1FFCC8F400D1D5D0 /* DGBBookListViewController.h */,
+				CE94579B1FFCC8F400D1D5D0 /* DGBBookListViewController.m */,
 			);
 			path = "Book List";
+			sourceTree = "<group>";
+		};
+		CE94579D1FFCDA1300D1D5D0 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE94579E1FFCDAE700D1D5D0 /* DGBBookMainView.h */,
+				CE94579F1FFCDAE700D1D5D0 /* DGBBookMainView.m */,
+				CE7B767F1FFDF30B00B2B58A /* DGBBookCoverView.h */,
+				CE7B76801FFDF30B00B2B58A /* DGBBookCoverView.m */,
+			);
+			path = "Custom Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,6 +406,7 @@
 				CE29F4551FFB1D4C00493711 /* DGBHomeViewController.xib in Resources */,
 				CE9457971FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.xib in Resources */,
 				CE29F45F1FFB1DC200493711 /* DGBFeedViewController.xib in Resources */,
+				CE7B76781FFDC28200B2B58A /* DGBBookListTableViewCell.xib in Resources */,
 				CE29F4641FFB1E5000493711 /* DGBBookLogListViewController.xib in Resources */,
 				CE6026F51FF4AE760089F2CA /* LaunchScreen.storyboard in Resources */,
 				CE6026F21FF4AE760089F2CA /* Assets.xcassets in Resources */,
@@ -403,14 +435,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE29F4681FFB1E7000493711 /* DGBUserInfoViewController.m in Sources */,
+				CE9457A01FFCDAE700D1D5D0 /* DGBBookMainView.m in Sources */,
 				CE29F4741FFB4D4900493711 /* AladinAPI.m in Sources */,
 				CE9457961FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.m in Sources */,
 				CE6026F81FF4AE760089F2CA /* main.m in Sources */,
 				CE29F45E1FFB1DC200493711 /* DGBFeedViewController.m in Sources */,
 				CE29F4631FFB1E5000493711 /* DGBBookLogListViewController.m in Sources */,
 				CE29F46C1FFB327A00493711 /* DGBBook.m in Sources */,
+				CE7B76771FFDC28200B2B58A /* DGBBookListTableViewCell.m in Sources */,
 				CE6026EA1FF4AE760089F2CA /* AppDelegate.m in Sources */,
+				CE7B76811FFDF30B00B2B58A /* DGBBookCoverView.m in Sources */,
 				CE29F4591FFB1D6900493711 /* DGBSearchViewController.m in Sources */,
+				CE94579C1FFCC8F400D1D5D0 /* DGBBookListViewController.m in Sources */,
 				CE29F4541FFB1D4C00493711 /* DGBHomeViewController.m in Sources */,
 				CE29F4771FFB62AA00493711 /* AladinConfig.m in Sources */,
 			);
@@ -573,7 +609,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yeon.Doksugongbang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -587,7 +623,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yeon.Doksugongbang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
