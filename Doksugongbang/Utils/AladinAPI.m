@@ -98,9 +98,6 @@ static NSString * const kAladinAPIItemLookUpString = @"/ttb/api/ItemLookUp.aspx"
         case AladinAPIItemLookUp:
             pathString = kAladinAPIItemLookUpString;
             break;
-        default:
-            pathString = [[NSString alloc] init];
-            break;
     }
     
     return pathString;
