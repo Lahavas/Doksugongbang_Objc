@@ -8,6 +8,7 @@
 
 #import "DGBBookMainView.h"
 #import "DGBBook.h"
+#import "DGBBookCoverView.h"
 
 @interface DGBBookMainView ()
 
@@ -60,15 +61,26 @@
         [self.authorLabel setText:author];
         [self.publisherLabel setText:publisher];
         [self.pubDateLabel setText:pubDate];
+        
+        // 임시 테스트용 코드 - Image Parsing
+        __weak typeof(self) weakSelf = self;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf updateBookCoverWithImage:[UIImage imageNamed:@"SampleBookImage01"]];
+        });
     }
+}
+
+- (void)updateBookCoverWithImage:(UIImage *)image {
+    [self.bookCoverView setBookCoverImage:image];
 }
 
 #pragma mark - Private Methods
 
 - (void)setUpSubviews {
-    CGFloat standardSpace = 8.0;
+    CGFloat standardSpace = 4.0;
     
-    _coverImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _bookCoverView = [[DGBBookCoverView alloc] initWithFrame:CGRectZero];
     
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -86,7 +98,10 @@
     [self.labelStackView setAlignment:UIStackViewAlignmentFill];
     [self.labelStackView setDistribution:UIStackViewDistributionFill];
     
-    [self addSubview:self.coverImageView];
+    [self.labelStackView setCustomSpacing:standardSpace * 2.0
+                                afterView:self.titleLabel];
+    
+    [self addSubview:self.bookCoverView];
     [self addSubview:self.labelStackView];
     
     [self setUpConstraints];
@@ -125,25 +140,39 @@
     
     UILayoutGuide *marginsGuide = self.layoutMarginsGuide;
     
-    [self.coverImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.bookCoverView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.labelStackView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    NSLayoutConstraint *coverImageViewTopConstraint = [self.coverImageView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor];
-    NSLayoutConstraint *coverImageViewBottomConstraint = [self.coverImageView.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor];
-    NSLayoutConstraint *coverImageViewLeadingConstraint = [self.coverImageView.leadingAnchor constraintEqualToAnchor:marginsGuide.leadingAnchor];
-    NSLayoutConstraint *coverImageViewTrailingConstraint = [self.coverImageView.trailingAnchor constraintEqualToAnchor:self.labelStackView.leadingAnchor
-                                                                                                              constant:standardMargin];
+    [self.bookCoverView setContentCompressionResistancePriority:999.0
+                                                         forAxis:UILayoutConstraintAxisHorizontal];
+    [self.bookCoverView setContentCompressionResistancePriority:999.0
+                                                         forAxis:UILayoutConstraintAxisVertical];
+    [self.bookCoverView setContentHuggingPriority:999.0
+                                           forAxis:UILayoutConstraintAxisHorizontal];
+    [self.bookCoverView setContentHuggingPriority:999.0
+                                           forAxis:UILayoutConstraintAxisVertical];
+    
+    [self.titleLabel setContentCompressionResistancePriority:749.0
+                                                     forAxis:UILayoutConstraintAxisVertical];
+    [self.titleLabel setContentHuggingPriority:250.0
+                                       forAxis:UILayoutConstraintAxisVertical];
+    
+    NSLayoutConstraint *bookCoverViewTopConstraint = [self.bookCoverView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor];
+    NSLayoutConstraint *bookCoverViewBottomConstraint = [self.bookCoverView.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor];
+    NSLayoutConstraint *bookCoverViewLeadingConstraint = [self.bookCoverView.leadingAnchor constraintEqualToAnchor:marginsGuide.leadingAnchor];
     
     NSLayoutConstraint *labelStackViewTopConstraint = [self.labelStackView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor];
-    NSLayoutConstraint *labelStackViewBottomConstraint = [self.labelStackView.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor];
-    NSLayoutConstraint *labelStackViewTrailingConstraint = [self.labelStackView.trailingAnchor constraintLessThanOrEqualToAnchor:marginsGuide.trailingAnchor];
+    NSLayoutConstraint *labelStackViewBottomConstraint = [self.labelStackView.bottomAnchor constraintLessThanOrEqualToAnchor:marginsGuide.bottomAnchor];
+    NSLayoutConstraint *labelStackViewLeadingConstraint = [self.labelStackView.leadingAnchor constraintEqualToAnchor:self.bookCoverView.trailingAnchor
+                                                                                                            constant:standardMargin];
+    NSLayoutConstraint *labelStackViewTrailingConstraint = [self.labelStackView.trailingAnchor constraintEqualToAnchor:marginsGuide.trailingAnchor];
     
-    [NSLayoutConstraint activateConstraints:@[coverImageViewTopConstraint,
-                                              coverImageViewBottomConstraint,
-                                              coverImageViewLeadingConstraint,
-                                              coverImageViewTrailingConstraint]];
+    [NSLayoutConstraint activateConstraints:@[bookCoverViewTopConstraint,
+                                              bookCoverViewBottomConstraint,
+                                              bookCoverViewLeadingConstraint]];
     [NSLayoutConstraint activateConstraints:@[labelStackViewTopConstraint,
                                               labelStackViewBottomConstraint,
+                                              labelStackViewLeadingConstraint,
                                               labelStackViewTrailingConstraint]];
 }
 

@@ -17,4 +17,18 @@
     return NSStringFromClass([self class]);
 }
 
+#pragma mark - Cell Life Cycle
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [self.bookMainView updateBookCoverWithImage:nil];
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    [self.bookMainView updateBookCoverWithImage:nil];
+}
+
 @end

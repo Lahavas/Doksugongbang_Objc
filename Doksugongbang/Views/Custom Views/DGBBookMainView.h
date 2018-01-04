@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class DGBBook;
+@class DGBBookCoverView;
 
 @interface DGBBookMainView : UIView
 
@@ -16,7 +17,7 @@
 
 @property (strong, nonatomic) DGBBook *book;
 
-@property (strong, nonatomic) UIImageView *coverImageView;
+@property (strong, nonatomic) DGBBookCoverView *bookCoverView;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *authorLabel;
 @property (strong, nonatomic) UILabel *publisherLabel;
@@ -25,5 +26,6 @@
 #pragma mark - Public Methods
 
 - (void)setContentsWithBook:(DGBBook *)book;
+- (void)updateBookCoverWithImage:(UIImage *)image;
 
 @end
