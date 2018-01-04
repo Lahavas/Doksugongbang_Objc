@@ -46,7 +46,7 @@
     [self.bookCoverImageView setImage:bookCoverImage];
 }
 
-#pragma mark - Auto Layout Methods
+#pragma mark - Intrinsic Content Size
 
 - (CGSize)intrinsicContentSize {
     CGFloat intrinsicCoverViewWidth = 100.0;

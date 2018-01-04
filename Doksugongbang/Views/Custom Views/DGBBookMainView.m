@@ -42,6 +42,22 @@
     return self;
 }
 
+#pragma mark - Intrinsic Content Size
+
+- (CGSize)intrinsicContentSize {
+    CGFloat topLayoutMargins = self.layoutMargins.top;
+    CGFloat bottomLayoutMargins = self.layoutMargins.bottom;
+    CGFloat bookCoverViewHeight = self.bookCoverView.intrinsicContentSize.height;
+    
+    CGFloat intrinsicMainViewWidth = UIViewNoIntrinsicMetric;
+    CGFloat intrinsicMainViewHeight = topLayoutMargins + bottomLayoutMargins + bookCoverViewHeight;
+    
+    CGSize intrinsicMainViewSize = CGSizeMake(intrinsicMainViewWidth,
+                                              intrinsicMainViewHeight);
+    
+    return intrinsicMainViewSize;
+}
+
 #pragma mark - Public Methods
 
 - (void)setContentsWithBook:(DGBBook *)book {
