@@ -39,14 +39,21 @@
     self = [super init];
     
     if (self) {
+        static NSDateFormatter *dateFormatter = nil;
+        if (dateFormatter == nil) {
+            dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        }
+        
         NSDictionary *subInfo = json[@"subInfo"];
+        NSString *pubDateString = json[@"pubDate"];
         
         _isbn = json[@"isbn13"];
         
         _title = json[@"title"];
         _author = json[@"author"];
         _publisher = json[@"publisher"];
-        _pubDate = json[@"pubDate"];
+        _pubDate = [dateFormatter dateFromString:pubDateString];
         
         _page = [subInfo[@"itemPage"] unsignedIntegerValue];
         _category = json[@"categoryName"];
