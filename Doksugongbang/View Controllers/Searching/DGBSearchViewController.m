@@ -12,7 +12,7 @@
 #import "DGBBookTitleTableViewCell.h"
 #import "AladinAPI.h"
 
-@interface DGBSearchViewController () <UISearchResultsUpdating, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface DGBSearchViewController () <UISearchResultsUpdating, UISearchBarDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 #pragma mark - Private Properties
 
@@ -139,6 +139,12 @@
     NSString *bookTitle = searchBar.text;
     
     [self pushBookListControllerWithTitle:bookTitle];
+}
+
+#pragma mark - Scroll View Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.searchController.searchBar resignFirstResponder];
 }
 
 #pragma mark - Table View Delegate
