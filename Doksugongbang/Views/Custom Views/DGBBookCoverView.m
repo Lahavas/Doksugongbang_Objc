@@ -63,7 +63,7 @@
     _bookCoverImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
-    [self.bookCoverImageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.bookCoverImageView setContentMode:UIViewContentModeScaleToFill];
     [self.spinner setHidesWhenStopped:YES];
     
     [self setUpBookCoverImageShadow];

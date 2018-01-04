@@ -62,12 +62,7 @@
         [self.publisherLabel setText:publisher];
         [self.pubDateLabel setText:pubDate];
         
-        // 임시 테스트용 코드 - Image Parsing
-        __weak typeof(self) weakSelf = self;
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakSelf updateBookCoverWithImage:[UIImage imageNamed:@"SampleBookImage01"]];
-        });
+        [self fetchImageWithURLString:book.coverURL];
     }
 }
 
@@ -174,6 +169,23 @@
                                               labelStackViewBottomConstraint,
                                               labelStackViewLeadingConstraint,
                                               labelStackViewTrailingConstraint]];
+}
+
+- (void)fetchImageWithURLString:(NSString *)urlString {
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                                    __weak typeof(self) weakSelf = self;
+                                                    
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                        UIImage *image = [UIImage imageWithData:data];
+                                                        [weakSelf updateBookCoverWithImage:image];
+                                                    });
+                                                }];
+    [dataTask resume];
 }
 
 @end
