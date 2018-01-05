@@ -40,10 +40,11 @@
     
     if (self) {
         static NSDateFormatter *dateFormatter = nil;
-        if (dateFormatter == nil) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
             dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        }
+        });
         
         NSDictionary *subInfo = json[@"subInfo"];
         NSString *pubDateString = json[@"pubDate"];

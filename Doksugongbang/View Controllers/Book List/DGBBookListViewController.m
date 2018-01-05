@@ -7,6 +7,7 @@
 //
 
 #import "DGBBookListViewController.h"
+//#import "UITableViewCell+DGBCellNameGenerator.h"
 #import "DGBBook.h"
 #import "DGBBookMainView.h"
 #import "DGBBookListTableViewCell.h"
@@ -31,18 +32,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationItem setTitle:self.bookListTitle];
+    
     [self setUpBookListTableView];
-    
-    [self.view addSubview:self.bookListTableView];
-    
     [self setUpConstraints];
-}
-
-#pragma mark - Accessor Methods
-
-- (void)setBookListTitle:(NSString *)bookListTitle {
-    _bookListTitle = bookListTitle;
-    [self.navigationItem setTitle:bookListTitle];
 }
 
 #pragma mark - Set Up Methods
@@ -54,10 +47,15 @@
     [self.bookListTableView setDelegate:self];
     [self.bookListTableView setDataSource:self];
     
+    [self.bookListTableView setEstimatedRowHeight:160.0];
+    [self.bookListTableView setRowHeight:UITableViewAutomaticDimension];
+    
     UINib *bookListCellNib = [UINib nibWithNibName:[DGBBookListTableViewCell className]
                                             bundle:nil];
     [self.bookListTableView registerNib:bookListCellNib
                  forCellReuseIdentifier:[DGBBookListTableViewCell className]];
+    
+    [self.view addSubview:self.bookListTableView];
 }
 
 - (void)setUpConstraints {
@@ -96,14 +94,6 @@
 }
 
 #pragma mark - Table View Delegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 160.0;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DGBBook *book = self.bookList[indexPath.row];

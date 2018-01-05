@@ -12,7 +12,7 @@
 
 @interface DGBBookLoader ()
 
-@property (strong, nonatomic) NSURLSession *session;
+@property (strong, nonatomic, readonly) NSURLSession *session;
 
 @end
 

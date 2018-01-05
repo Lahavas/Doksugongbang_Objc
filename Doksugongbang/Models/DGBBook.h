@@ -12,19 +12,19 @@
 
 #pragma mark - Public Properties
 
-@property (copy, nonatomic) NSString *isbn;
+@property (strong, nonatomic, readonly) NSString *isbn;
 
-@property (copy, nonatomic) NSString *title;
-@property (copy, nonatomic) NSString *author;
-@property (copy, nonatomic) NSString *publisher;
-@property (strong, nonatomic) NSDate *pubDate;
+@property (strong, nonatomic, readonly) NSString *title;
+@property (strong, nonatomic, readonly) NSString *author;
+@property (strong, nonatomic, readonly) NSString *publisher;
+@property (strong, nonatomic, readonly) NSDate *pubDate;
 
-@property (assign, nonatomic) NSUInteger page;
-@property (copy, nonatomic) NSString *category;
-@property (copy, nonatomic) NSString *bookDescription;
+@property (assign, nonatomic, readonly) NSUInteger page;
+@property (strong, nonatomic, readonly) NSString *category;
+@property (strong, nonatomic, readonly) NSString *bookDescription;
 
-@property (copy, nonatomic) NSString *linkURL;
-@property (copy, nonatomic) NSString *coverURL;
+@property (strong, nonatomic, readonly) NSString *linkURL;
+@property (strong, nonatomic, readonly) NSString *coverURL;
 
 #pragma mark - Initialization
 

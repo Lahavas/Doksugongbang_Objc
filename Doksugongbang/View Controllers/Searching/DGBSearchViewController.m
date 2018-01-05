@@ -7,6 +7,7 @@
 //
 
 #import "DGBSearchViewController.h"
+//#import "UITableViewCell+DGBCellNameGenerator.h"
 #import "DGBBook.h"
 #import "DGBBookListViewController.h"
 #import "DGBBookTitleTableViewCell.h"
@@ -17,7 +18,7 @@
 
 #pragma mark - Private Properties
 
-@property (copy, nonatomic) NSArray<DGBBook *> *bookList;
+@property (strong, nonatomic) NSArray<DGBBook *> *bookList;
 
 @property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) UITableView *searchResultTableView;
@@ -41,8 +42,6 @@
     
     [self setUpSearchController];
     [self setUpSearchResultTableView];
-    
-    [self.view addSubview:self.searchResultTableView];
     
     [self setUpConstraints];
 }
@@ -69,10 +68,15 @@
     [self.searchResultTableView setDelegate:self];
     [self.searchResultTableView setDataSource:self];
     
+    [self.searchResultTableView setEstimatedRowHeight:44.0];
+    [self.searchResultTableView setRowHeight:UITableViewAutomaticDimension];
+    
     UINib *bookTitleCellNib = [UINib nibWithNibName:[DGBBookTitleTableViewCell className]
                                              bundle:nil];
     [self.searchResultTableView registerNib:bookTitleCellNib
                      forCellReuseIdentifier:[DGBBookTitleTableViewCell className]];
+    
+    [self.view addSubview:self.searchResultTableView];
 }
 
 - (void)setUpConstraints {
@@ -153,14 +157,6 @@
 }
 
 #pragma mark - Table View Delegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DGBBook *book = self.bookList[indexPath.row];

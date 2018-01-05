@@ -63,18 +63,19 @@
 #pragma mark - Set Up Methods
 
 - (void)setUpSubviews {
-    _bookCoverView = [[DGBBookCoverView alloc] initWithFrame:CGRectZero];
-    
+    [self setUpBookCoverView];
     [self setUpLabelsConfigurations];
     [self setUpButtonsConfigurations];
     [self setUpLabelStackViewConfigurations];
     [self setUpButtonStackViewConfigurations];
     
-    [self addSubview:self.bookCoverView];
-    [self addSubview:self.labelStackView];
-    [self addSubview:self.buttonStackView];
-    
     [self setUpConstraints];
+}
+
+- (void)setUpBookCoverView {
+    _bookCoverView = [[DGBBookCoverView alloc] initWithFrame:CGRectZero];
+    
+    [self addSubview:self.bookCoverView];
 }
 
 - (void)setUpLabelsConfigurations {
@@ -146,6 +147,8 @@
     
     [self.labelStackView setCustomSpacing:standardSpace * 2.0
                                 afterView:self.titleLabel];
+    
+    [self addSubview:self.labelStackView];
 }
 
 - (void)setUpButtonStackViewConfigurations {
@@ -158,6 +161,8 @@
     [self.buttonStackView setSpacing:standardSpace];
     [self.buttonStackView setAlignment:UIStackViewAlignmentFill];
     [self.buttonStackView setDistribution:UIStackViewDistributionFillEqually];
+    
+    [self addSubview:self.buttonStackView];
 }
 
 - (void)setUpConstraints {
