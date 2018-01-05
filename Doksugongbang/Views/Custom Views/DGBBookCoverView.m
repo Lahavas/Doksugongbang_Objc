@@ -57,7 +57,7 @@
     return intrinsicCoverViewSize;
 }
 
-#pragma mark - Private Methods
+#pragma mark - Set Up Methods
 
 - (void)setUpSubviews {
     _bookCoverImageView = [[UIImageView alloc] initWithFrame:CGRectZero];

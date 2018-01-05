@@ -12,6 +12,8 @@
 
 @interface DGBBookListViewController : UIViewController
 
+#pragma mark - Public Properties
+
 @property (copy, nonatomic) NSString *bookTitle;
 
 @end

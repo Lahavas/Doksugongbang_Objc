@@ -59,59 +59,13 @@
     return intrinsicMainViewSize;
 }
 
-#pragma mark - Public Methods
-
-- (void)setContentsWithBook:(DGBBook *)book {
-    static NSDateFormatter *dateFormatter = nil;
-    if (dateFormatter == nil) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy년 MM월 dd일"];
-    }
-    
-    if (book) {
-        NSString *title = [NSString stringWithFormat:@"%@", book.title];
-        NSString *author = [NSString stringWithFormat:@"%@ 지음", book.author];
-        NSString *publisher = [NSString stringWithFormat:@"%@ 펴냄", book.publisher];
-        NSString *pubDate = [NSString stringWithFormat:@"%@ 출판", [dateFormatter stringFromDate:book.pubDate]];
-        
-        [self.titleLabel setText:title];
-        [self.authorLabel setText:author];
-        [self.publisherLabel setText:publisher];
-        [self.pubDateLabel setText:pubDate];
-        
-        [self fetchImageWithURLString:book.coverURL];
-    }
-}
-
-- (void)updateBookCoverWithImage:(UIImage *)image {
-    [self.bookCoverView setBookCoverImage:image];
-}
-
-#pragma mark - Private Methods
+#pragma mark - Set Up Methods
 
 - (void)setUpSubviews {
-    
-    
     _bookCoverView = [[DGBBookCoverView alloc] initWithFrame:CGRectZero];
     
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _publisherLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _pubDateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    
-    _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _bookButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    _labelStackView = [[UIStackView alloc] initWithArrangedSubviews:@[self.titleLabel,
-                                                                      self.authorLabel,
-                                                                      self.publisherLabel,
-                                                                      self.pubDateLabel]];
-    
-    _buttonStackView = [[UIStackView alloc] initWithArrangedSubviews:@[self.likeButton,
-                                                                       self.bookButton]];
-    
-    [self setUpLabelConfigurations];
-    [self setUpButtonConfigurations];
+    [self setUpLabelsConfigurations];
+    [self setUpButtonsConfigurations];
     [self setUpLabelStackViewConfigurations];
     [self setUpButtonStackViewConfigurations];
     
@@ -122,7 +76,12 @@
     [self setUpConstraints];
 }
 
-- (void)setUpLabelConfigurations {
+- (void)setUpLabelsConfigurations {
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _authorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _publisherLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _pubDateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    
     UIColor *titleTextColor = UIColor.blackColor;
     UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
     
@@ -150,7 +109,10 @@
     [self.pubDateLabel setNumberOfLines:1];
 }
 
-- (void)setUpButtonConfigurations {
+- (void)setUpButtonsConfigurations {
+    _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _bookButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     UIImage *emptyLikeImage = [UIImage imageNamed:@"EmptyLike"];
     UIImage *selectedLikeImage = [UIImage imageNamed:@"SelectedLike"];
     
@@ -171,6 +133,11 @@
 - (void)setUpLabelStackViewConfigurations {
     CGFloat standardSpace = 4.0;
     
+    _labelStackView = [[UIStackView alloc] initWithArrangedSubviews:@[self.titleLabel,
+                                                                      self.authorLabel,
+                                                                      self.publisherLabel,
+                                                                      self.pubDateLabel]];
+    
     [self.labelStackView setAxis:UILayoutConstraintAxisVertical];
     [self.labelStackView setSpacing:standardSpace];
     [self.labelStackView setAlignment:UIStackViewAlignmentFill];
@@ -182,6 +149,9 @@
 
 - (void)setUpButtonStackViewConfigurations {
     CGFloat standardSpace = 8.0;
+    
+    _buttonStackView = [[UIStackView alloc] initWithArrangedSubviews:@[self.likeButton,
+                                                                       self.bookButton]];
     
     [self.buttonStackView setAxis:UILayoutConstraintAxisHorizontal];
     [self.buttonStackView setSpacing:standardSpace];
@@ -199,13 +169,13 @@
     [self.buttonStackView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     [self.bookCoverView setContentCompressionResistancePriority:999.0
-                                                         forAxis:UILayoutConstraintAxisHorizontal];
+                                                        forAxis:UILayoutConstraintAxisHorizontal];
     [self.bookCoverView setContentCompressionResistancePriority:999.0
-                                                         forAxis:UILayoutConstraintAxisVertical];
+                                                        forAxis:UILayoutConstraintAxisVertical];
     [self.bookCoverView setContentHuggingPriority:999.0
-                                           forAxis:UILayoutConstraintAxisHorizontal];
+                                          forAxis:UILayoutConstraintAxisHorizontal];
     [self.bookCoverView setContentHuggingPriority:999.0
-                                           forAxis:UILayoutConstraintAxisVertical];
+                                          forAxis:UILayoutConstraintAxisVertical];
     
     [self.titleLabel setContentCompressionResistancePriority:749.0
                                                      forAxis:UILayoutConstraintAxisVertical];
@@ -236,6 +206,36 @@
                                               buttonStackViewTrailingConstraint,
                                               buttonStackViewBottomConstraint]];
 }
+
+#pragma mark - Public Methods
+
+- (void)setContentsWithBook:(DGBBook *)book {
+    static NSDateFormatter *dateFormatter = nil;
+    if (dateFormatter == nil) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy년 MM월 dd일"];
+    }
+    
+    if (book) {
+        NSString *title = [NSString stringWithFormat:@"%@", book.title];
+        NSString *author = [NSString stringWithFormat:@"%@ 지음", book.author];
+        NSString *publisher = [NSString stringWithFormat:@"%@ 펴냄", book.publisher];
+        NSString *pubDate = [NSString stringWithFormat:@"%@ 출판", [dateFormatter stringFromDate:book.pubDate]];
+        
+        [self.titleLabel setText:title];
+        [self.authorLabel setText:author];
+        [self.publisherLabel setText:publisher];
+        [self.pubDateLabel setText:pubDate];
+        
+        [self fetchImageWithURLString:book.coverURL];
+    }
+}
+
+- (void)updateBookCoverWithImage:(UIImage *)image {
+    [self.bookCoverView setBookCoverImage:image];
+}
+
+#pragma mark - Private Methods
 
 - (void)fetchImageWithURLString:(NSString *)urlString {
     NSURL *url = [NSURL URLWithString:urlString];

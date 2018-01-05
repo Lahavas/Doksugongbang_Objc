@@ -36,6 +36,8 @@
     
     self.bookList = [[NSArray alloc] init];
     
+    [self setDefinesPresentationContext:YES];
+    
     [self setUpSearchController];
     [self setUpSearchResultTableView];
     
@@ -44,11 +46,9 @@
     [self setUpConstraints];
 }
 
-#pragma mark - Private Methods
+#pragma mark - Set Up Methods
 
 - (void)setUpSearchController {
-    [self setDefinesPresentationContext:YES];
-    
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
     [self.searchController setSearchResultsUpdater:self];
@@ -90,7 +90,9 @@
                                               searchResultTableViewTrailingConstraint]];
 }
 
-- (void)pushBookListControllerWithTitle:(NSString *)title {
+#pragma mark - Private Methods
+
+- (void)showBookListControllerWithTitle:(NSString *)title {
     DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
     [bookListViewController setBookTitle:title];
     
@@ -102,7 +104,8 @@
     NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
                                           parameters:@{@"Query": queryString,
                                                        @"QueryType": @"Keyword",
-                                                       @"SearchTarget": @"Book"}];
+                                                       @"SearchTarget": @"Book",
+                                                       @"MaxResults": @"100"}];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -138,7 +141,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     NSString *bookTitle = searchBar.text;
     
-    [self pushBookListControllerWithTitle:bookTitle];
+    [self showBookListControllerWithTitle:bookTitle];
 }
 
 #pragma mark - Scroll View Delegate
@@ -160,7 +163,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DGBBook *book = self.bookList[indexPath.row];
     
-    [self pushBookListControllerWithTitle:book.title];
+    [self showBookListControllerWithTitle:book.title];
 }
 
 #pragma mark - Table View Data Source

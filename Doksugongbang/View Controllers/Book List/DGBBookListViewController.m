@@ -7,9 +7,13 @@
 //
 
 #import "DGBBookListViewController.h"
-#import "DGBBookListTableViewCell.h"
+
 #import "DGBBook.h"
 #import "DGBBookMainView.h"
+#import "DGBBookListTableViewCell.h"
+
+#import "DGBBookDetailViewController.h"
+
 #import "AladinAPI.h"
 
 @interface DGBBookListViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -20,6 +24,8 @@
 
 @end
 
+#pragma mark -
+
 @implementation DGBBookListViewController
 
 #pragma mark - View Life Cycle
@@ -29,6 +35,18 @@
     
     [self.navigationItem setTitle:[NSString stringWithFormat:@"검색어: %@", self.bookTitle]];
     
+    [self setUpBookListTableView];
+    
+    [self.view addSubview:self.bookListTableView];
+    
+    [self setUpConstraints];
+    
+    [self fetchBookListWithQueryString:self.bookTitle];
+}
+
+#pragma mark - Set Up Methods
+
+- (void)setUpBookListTableView {
     self.bookListTableView = [[UITableView alloc] initWithFrame:CGRectZero
                                                           style:UITableViewStylePlain];
     
@@ -39,15 +57,7 @@
                                             bundle:nil];
     [self.bookListTableView registerNib:bookListCellNib
                  forCellReuseIdentifier:[DGBBookListTableViewCell className]];
-    
-    [self.view addSubview:self.bookListTableView];
-    
-    [self setUpConstraints];
-    
-    [self fetchBookListWithQueryString:self.bookTitle];
 }
-
-#pragma mark - Private Methods
 
 - (void)setUpConstraints {
     [self.bookListTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -65,11 +75,14 @@
                                               bookListTableViewTrailingConstraint]];
 }
 
+#pragma mark - Private Methods
+
 - (void)fetchBookListWithQueryString:(NSString *)queryString {
     NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
                                           parameters:@{@"Query": queryString,
                                                        @"QueryType": @"Keyword",
-                                                       @"SearchTarget": @"Book"}];
+                                                       @"SearchTarget": @"Book",
+                                                       @"MaxResults": @"100"}];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -95,6 +108,16 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 160.0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DGBBook *book = self.bookList[indexPath.row];
+    
+    DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
+    bookDetailViewController.book = book;
+    
+    [self showViewController:bookDetailViewController
+                      sender:self];
 }
 
 #pragma mark - Table View Data Source
