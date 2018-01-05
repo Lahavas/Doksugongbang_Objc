@@ -12,8 +12,8 @@
 
 @interface DGBBookListViewController : UIViewController
 
-#pragma mark - Public Properties
+#pragma mark - Public Methods
 
-@property (copy, nonatomic) NSString *bookTitle;
+- (void)showBookListControllerWithTitle:(NSString *)title completion:(void (^)(void))completion;
 
 @end

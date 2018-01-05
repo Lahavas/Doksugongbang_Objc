@@ -10,6 +10,7 @@
 #import "DGBBook.h"
 #import "DGBBookListViewController.h"
 #import "DGBBookTitleTableViewCell.h"
+#import "DGBBookLoader.h"
 #import "AladinAPI.h"
 
 @interface DGBSearchViewController () <UISearchResultsUpdating, UISearchBarDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -93,34 +94,16 @@
 #pragma mark - Private Methods
 
 - (void)showBookListControllerWithTitle:(NSString *)title {
-    DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
-    [bookListViewController setBookTitle:title];
-    
-    [self showViewController:bookListViewController
-                      sender:self];
-}
-
-- (void)fetchBookTitleWithQueryString:(NSString *)queryString {
-    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
-                                          parameters:@{@"Query": queryString,
-                                                       @"QueryType": @"Keyword",
-                                                       @"SearchTarget": @"Book",
-                                                       @"MaxResults": @"100"}];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     __weak typeof(self) weakSelf = self;
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
-                                                completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//                                                    NSLog(@"Got response %@ with error %@.\n", response, error);
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        weakSelf.bookList = [AladinAPI bookListParsingFromJSONData:data];
-                                                        [weakSelf.searchResultTableView reloadData];
-                                                    });
-                                                }];
-    
-    [dataTask resume];
+    DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
+    [bookListViewController showBookListControllerWithTitle:title
+                                                 completion:^{
+                                                     __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                     
+                                                     [strongSelf showViewController:bookListViewController
+                                                                            sender:strongSelf];
+                                                 }];
 }
 
 #pragma mark - Search Results Updating
@@ -129,7 +112,19 @@
     NSString *searchString = searchController.searchBar.text;
     
     if (searchString.length > 0) {
-        [self fetchBookTitleWithQueryString:searchString];
+        __weak typeof(self) weakSelf = self;
+        
+        NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
+                                              parameters:@{@"Query": searchString,
+                                                           @"QueryType": @"Keyword",
+                                                           @"SearchTarget": @"Book",
+                                                           @"MaxResults": @"100"}];
+        [[DGBBookLoader sharedInstance] fetchBookListWithURL:url
+                                                  completion:^(NSArray<DGBBook *> *bookList) {
+                                                      __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                      [strongSelf setBookList:bookList];
+                                                      [strongSelf.searchResultTableView reloadData];
+                                                  }];
     } else {
         self.bookList = nil;
         [self.searchResultTableView reloadData];

@@ -9,6 +9,7 @@
 #import "DGBBookMainView.h"
 #import "DGBBook.h"
 #import "DGBBookCoverView.h"
+#import "DGBBookLoader.h"
 
 @interface DGBBookMainView ()
 
@@ -227,31 +228,19 @@
         [self.publisherLabel setText:publisher];
         [self.pubDateLabel setText:pubDate];
         
-        [self fetchImageWithURLString:book.coverURL];
+        __weak typeof(self) weakSelf = self;
+        
+        [[DGBBookLoader sharedInstance] fetchCoverImageWithBook:book
+                                                     completion:^(UIImage *image) {
+                                                         __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                         
+                                                         [strongSelf updateBookCoverWithImage:image];
+                                                     }];
     }
 }
 
 - (void)updateBookCoverWithImage:(UIImage *)image {
     [self.bookCoverView setBookCoverImage:image];
-}
-
-#pragma mark - Private Methods
-
-- (void)fetchImageWithURLString:(NSString *)urlString {
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSession *session = [NSURLSession sharedSession];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
-                                                completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                                    __weak typeof(self) weakSelf = self;
-                                                    
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        UIImage *image = [UIImage imageWithData:data];
-                                                        [weakSelf updateBookCoverWithImage:image];
-                                                    });
-                                                }];
-    [dataTask resume];
 }
 
 @end

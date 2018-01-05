@@ -7,17 +7,16 @@
 //
 
 #import "DGBBookListViewController.h"
-
 #import "DGBBook.h"
 #import "DGBBookMainView.h"
 #import "DGBBookListTableViewCell.h"
-
 #import "DGBBookDetailViewController.h"
-
+#import "DGBBookLoader.h"
 #import "AladinAPI.h"
 
 @interface DGBBookListViewController () <UITableViewDelegate, UITableViewDataSource>
 
+@property (copy, nonatomic) NSString *bookTitle;
 @property (copy, nonatomic) NSArray<DGBBook *> *bookList;
 
 @property (strong, nonatomic) UITableView *bookListTableView;
@@ -40,8 +39,6 @@
     [self.view addSubview:self.bookListTableView];
     
     [self setUpConstraints];
-    
-    [self fetchBookListWithQueryString:self.bookTitle];
 }
 
 #pragma mark - Set Up Methods
@@ -75,29 +72,27 @@
                                               bookListTableViewTrailingConstraint]];
 }
 
-#pragma mark - Private Methods
+#pragma mark - Public Methods
 
-- (void)fetchBookListWithQueryString:(NSString *)queryString {
-    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
-                                          parameters:@{@"Query": queryString,
-                                                       @"QueryType": @"Keyword",
-                                                       @"SearchTarget": @"Book",
-                                                       @"MaxResults": @"100"}];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSession *session = [NSURLSession sharedSession];
+- (void)showBookListControllerWithTitle:(NSString *)title completion:(void (^)(void))completion {
+    [self setBookTitle:title];
     
     __weak typeof(self) weakSelf = self;
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
-                                                completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                                    //                                                    NSLog(@"Got response %@ with error %@.\n", response, error);
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        weakSelf.bookList = [AladinAPI bookListParsingFromJSONData:data];
-                                                        [weakSelf.bookListTableView reloadData];
-                                                    });
-                                                }];
+    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
+                                          parameters:@{@"Query": self.bookTitle,
+                                                       @"QueryType": @"Keyword",
+                                                       @"SearchTarget": @"Book",
+                                                       @"MaxResults": @"100"}];
+    [[DGBBookLoader sharedInstance] fetchBookListWithURL:url
+                                              completion:^(NSArray<DGBBook *> *bookList) {
+                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                  
+                                                  [strongSelf setBookList:bookList];
+                                                  [strongSelf.bookListTableView reloadData];
+                                              }];
     
-    [dataTask resume];
+    completion();
 }
 
 #pragma mark - Table View Delegate
