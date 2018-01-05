@@ -93,17 +93,24 @@
 
 #pragma mark - Private Methods
 
-- (void)showBookListControllerWithTitle:(NSString *)title {
+- (void)presentBookListViewControllerWithTitle:(NSString *)title {
     __weak typeof(self) weakSelf = self;
     
-    DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
-    [bookListViewController showBookListControllerWithTitle:title
-                                                 completion:^{
-                                                     __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                     
-                                                     [strongSelf showViewController:bookListViewController
-                                                                            sender:strongSelf];
-                                                 }];
+    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
+                                          parameters:@{@"Query": title,
+                                                       @"QueryType": @"Keyword",
+                                                       @"SearchTarget": @"Book",
+                                                       @"MaxResults": @"100"}];
+    [[DGBBookLoader sharedInstance] fetchBookListWithURL:url
+                                              completion:^(NSArray<DGBBook *> *bookList) {
+                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                  
+                                                  DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
+                                                  [bookListViewController setBookListTitle:[NSString stringWithFormat:@"검색어: %@", title]];
+                                                  [bookListViewController setBookList:bookList];
+                                                  [strongSelf showViewController:bookListViewController
+                                                                          sender:strongSelf];
+                                              }];
 }
 
 #pragma mark - Search Results Updating
@@ -136,7 +143,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     NSString *bookTitle = searchBar.text;
     
-    [self showBookListControllerWithTitle:bookTitle];
+    [self presentBookListViewControllerWithTitle:bookTitle];
 }
 
 #pragma mark - Scroll View Delegate
@@ -158,7 +165,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DGBBook *book = self.bookList[indexPath.row];
     
-    [self showBookListControllerWithTitle:book.title];
+    [self presentBookListViewControllerWithTitle:book.title];
 }
 
 #pragma mark - Table View Data Source

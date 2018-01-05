@@ -18,6 +18,7 @@
 
 #pragma mark - Fetching Methods
 
+- (void)fetchBookWithURL:(NSURL *)url completion:(void (^)(DGBBook *book))completion;
 - (void)fetchBookListWithURL:(NSURL *)url completion:(void (^)(NSArray<DGBBook *> *bookList))completion;
 - (void)fetchCoverImageWithBook:(DGBBook *)book completion:(void (^)(UIImage *image))completion;
 

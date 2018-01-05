@@ -16,8 +16,7 @@
 
 @interface DGBBookListViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (copy, nonatomic) NSString *bookTitle;
-@property (copy, nonatomic) NSArray<DGBBook *> *bookList;
+#pragma mark - Private Properties
 
 @property (strong, nonatomic) UITableView *bookListTableView;
 
@@ -32,13 +31,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:[NSString stringWithFormat:@"검색어: %@", self.bookTitle]];
-    
     [self setUpBookListTableView];
     
     [self.view addSubview:self.bookListTableView];
     
     [self setUpConstraints];
+}
+
+#pragma mark - Accessor Methods
+
+- (void)setBookListTitle:(NSString *)bookListTitle {
+    _bookListTitle = bookListTitle;
+    [self.navigationItem setTitle:bookListTitle];
 }
 
 #pragma mark - Set Up Methods
@@ -72,27 +76,23 @@
                                               bookListTableViewTrailingConstraint]];
 }
 
-#pragma mark - Public Methods
+#pragma mark - Private Methods
 
-- (void)showBookListControllerWithTitle:(NSString *)title completion:(void (^)(void))completion {
-    [self setBookTitle:title];
-    
+- (void)presentBookDetailViewControllerWithISBN:(NSString *)isbnString {
     __weak typeof(self) weakSelf = self;
     
-    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
-                                          parameters:@{@"Query": self.bookTitle,
-                                                       @"QueryType": @"Keyword",
-                                                       @"SearchTarget": @"Book",
-                                                       @"MaxResults": @"100"}];
-    [[DGBBookLoader sharedInstance] fetchBookListWithURL:url
-                                              completion:^(NSArray<DGBBook *> *bookList) {
-                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
+    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemLookUp
+                                          parameters:@{@"ItemId": isbnString,
+                                                       @"ItemIdType": @"ISBN13"}];
+    [[DGBBookLoader sharedInstance] fetchBookWithURL:url
+                                          completion:^(DGBBook *book) {
+                                              __strong typeof(weakSelf) strongSelf = weakSelf;
                                                   
-                                                  [strongSelf setBookList:bookList];
-                                                  [strongSelf.bookListTableView reloadData];
-                                              }];
-    
-    completion();
+                                              DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
+                                              [bookDetailViewController setBook:book];
+                                              [strongSelf showViewController:bookDetailViewController
+                                                                      sender:strongSelf];
+                                          }];
 }
 
 #pragma mark - Table View Delegate
@@ -107,12 +107,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DGBBook *book = self.bookList[indexPath.row];
-    
-    DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
-    bookDetailViewController.book = book;
-    
-    [self showViewController:bookDetailViewController
-                      sender:self];
+    [self presentBookDetailViewControllerWithISBN:book.isbn];
 }
 
 #pragma mark - Table View Data Source
