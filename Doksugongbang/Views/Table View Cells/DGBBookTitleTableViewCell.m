@@ -10,10 +10,4 @@
 
 @implementation DGBBookTitleTableViewCell
 
-#pragma mark - Class Methods
-
-+ (NSString *)className {
-    return NSStringFromClass([self class]);
-}
-
 @end

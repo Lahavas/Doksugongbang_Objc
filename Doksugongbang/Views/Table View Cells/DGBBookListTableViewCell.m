@@ -11,12 +11,6 @@
 
 @implementation DGBBookListTableViewCell
 
-#pragma mark - Class Methods
-
-+ (NSString *)className {
-    return NSStringFromClass([self class]);
-}
-
 #pragma mark - Cell Life Cycle
 
 - (void)awakeFromNib {

@@ -12,10 +12,8 @@
 
 @interface DGBBookListTableViewCell : UITableViewCell
 
+#pragma mark - Public Properties
+
 @property (weak, nonatomic) IBOutlet DGBBookMainView *bookMainView;
-
-#pragma mark - Class Methods
-
-+ (NSString *)className;
 
 @end

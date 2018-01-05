@@ -7,7 +7,7 @@
 //
 
 #import "DGBSearchViewController.h"
-//#import "UITableViewCell+DGBCellNameGenerator.h"
+#import "UITableViewCell+DGBCellNameGenerator.h"
 #import "DGBBook.h"
 #import "DGBBookListViewController.h"
 #import "DGBBookTitleTableViewCell.h"
