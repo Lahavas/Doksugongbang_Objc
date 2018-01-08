@@ -38,6 +38,12 @@
     [self setUpConstraints];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self updateBookList];
+}
+
 #pragma mark - Set Up Methods
 
 - (void)setUpBookListTableView {
@@ -74,26 +80,32 @@
                                               bookListTableViewTrailingConstraint]];
 }
 
+- (void)updateBookList {
+    __weak typeof(self) weakSelf = self;
+    
+    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
+                                          parameters:@{@"Query": self.bookListTitle,
+                                                       @"QueryType": @"Keyword",
+                                                       @"SearchTarget": @"Book",
+                                                       @"MaxResults": @"100"}];
+    [[DGBDataLoader sharedInstance] fetchDataWithURL:url
+                                          completion:^(NSData *data) {
+                                              weakSelf.bookList = [AladinAPI bookListParsingFromJSONData:data];
+                                              
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [weakSelf.bookListTableView reloadData];
+                                              });
+                                          }];
+}
+
 #pragma mark - Private Methods
 
 - (void)presentBookDetailViewControllerWithISBN:(NSString *)isbnString {
-    __weak typeof(self) weakSelf = self;
+    DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
+    [bookDetailViewController setIsbn:isbnString];
     
-    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemLookUp
-                                          parameters:@{@"ItemId": isbnString,
-                                                       @"ItemIdType": @"ISBN13"}];
-    [[DGBDataLoader sharedInstance] fetchDataWithURL:url
-                                          completion:^(NSData *data) {
-                                              DGBBook *book = [AladinAPI bookParsingFromJSONData:data];
-                                              
-                                              DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
-                                              [bookDetailViewController setBook:book];
-                                              
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [weakSelf showViewController:bookDetailViewController
-                                                                        sender:weakSelf];
-                                              });
-                                          }];
+    [self showViewController:bookDetailViewController
+                      sender:self];
 }
 
 #pragma mark - Table View Delegate

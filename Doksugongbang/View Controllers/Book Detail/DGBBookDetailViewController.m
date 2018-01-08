@@ -8,8 +8,8 @@
 
 #import "DGBBookDetailViewController.h"
 #import "DGBBook.h"
-#import "DGBBookLoader.h"
 #import "AladinAPI.h"
+#import "DGBDataLoader.h"
 
 @interface DGBBookDetailViewController ()
 
@@ -27,6 +27,28 @@
     [self.navigationItem setTitle:@"책 정보"];
     
     NSLog(@"%@", self.book);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self updateBook];
+}
+
+#pragma mark - Set Up Methods
+
+- (void)updateBook {
+    __weak typeof(self) weakSelf = self;
+    
+    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemLookUp
+                                          parameters:@{@"ItemId": self.isbn,
+                                                       @"ItemIdType": @"ISBN13"}];
+    [[DGBDataLoader sharedInstance] fetchDataWithURL:url
+                                          completion:^(NSData *data) {
+                                              DGBBook *book = [AladinAPI bookParsingFromJSONData:data];
+                                              
+                                              NSLog(@"%@", book);
+                                          }];
 }
 
 @end

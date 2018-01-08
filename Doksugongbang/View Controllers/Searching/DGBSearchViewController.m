@@ -98,26 +98,13 @@
 #pragma mark - Private Methods
 
 - (void)presentBookListViewControllerWithTitle:(NSString *)title {
-    __weak typeof(self) weakSelf = self;
     
-    NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
-                                          parameters:@{@"Query": title,
-                                                       @"QueryType": @"Keyword",
-                                                       @"SearchTarget": @"Book",
-                                                       @"MaxResults": @"100"}];
-    [[DGBDataLoader sharedInstance] fetchDataWithURL:url
-                                          completion:^(NSData *data) {
-                                              NSArray<DGBBook *> *bookList = [AladinAPI bookListParsingFromJSONData:data];
-                                              
-                                              DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
-                                              [bookListViewController setBookListTitle:[NSString stringWithFormat:@"검색어: %@", title]];
-                                              [bookListViewController setBookList:bookList];
-                                              
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [weakSelf showViewController:bookListViewController
-                                                                        sender:weakSelf];
-                                              });
-                                          }];
+    DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
+    
+    [bookListViewController setBookListTitle:[NSString stringWithFormat:@"%@", title]];
+    
+    [self showViewController:bookListViewController
+                      sender:self];
 }
 
 #pragma mark - Search Results Updating

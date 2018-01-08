@@ -14,6 +14,8 @@
 
 #pragma mark - Public Properties
 
+@property (strong, nonatomic) NSString *isbn;
+
 @property (strong, nonatomic) DGBBook *book;
 
 @end
