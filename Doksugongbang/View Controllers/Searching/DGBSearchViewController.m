@@ -11,7 +11,7 @@
 #import "DGBBook.h"
 #import "DGBBookListViewController.h"
 #import "DGBBookTitleTableViewCell.h"
-#import "DGBBookLoader.h"
+#import "DGBDataLoader.h"
 #import "AladinAPI.h"
 
 @interface DGBSearchViewController () <UISearchResultsUpdating, UISearchBarDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -105,16 +105,19 @@
                                                        @"QueryType": @"Keyword",
                                                        @"SearchTarget": @"Book",
                                                        @"MaxResults": @"100"}];
-    [[DGBBookLoader sharedInstance] fetchBookListWithURL:url
-                                              completion:^(NSArray<DGBBook *> *bookList) {
-                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                  
-                                                  DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
-                                                  [bookListViewController setBookListTitle:[NSString stringWithFormat:@"검색어: %@", title]];
-                                                  [bookListViewController setBookList:bookList];
-                                                  [strongSelf showViewController:bookListViewController
-                                                                          sender:strongSelf];
-                                              }];
+    [[DGBDataLoader sharedInstance] fetchDataWithURL:url
+                                          completion:^(NSData *data) {
+                                              NSArray<DGBBook *> *bookList = [AladinAPI bookListParsingFromJSONData:data];
+                                              
+                                              DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
+                                              [bookListViewController setBookListTitle:[NSString stringWithFormat:@"검색어: %@", title]];
+                                              [bookListViewController setBookList:bookList];
+                                              
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [weakSelf showViewController:bookListViewController
+                                                                        sender:weakSelf];
+                                              });
+                                          }];
 }
 
 #pragma mark - Search Results Updating
@@ -130,12 +133,15 @@
                                                            @"QueryType": @"Keyword",
                                                            @"SearchTarget": @"Book",
                                                            @"MaxResults": @"100"}];
-        [[DGBBookLoader sharedInstance] fetchBookListWithURL:url
-                                                  completion:^(NSArray<DGBBook *> *bookList) {
-                                                      __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                      [strongSelf setBookList:bookList];
-                                                      [strongSelf.searchResultTableView reloadData];
-                                                  }];
+        [[DGBDataLoader sharedInstance] fetchDataWithURL:url
+                                              completion:^(NSData *data) {
+                                                  NSArray<DGBBook *> *bookList = [AladinAPI bookListParsingFromJSONData:data];
+                                                  
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [weakSelf setBookList:bookList];
+                                                      [weakSelf.searchResultTableView reloadData];
+                                                  });
+                                              }];
     } else {
         self.bookList = nil;
         [self.searchResultTableView reloadData];

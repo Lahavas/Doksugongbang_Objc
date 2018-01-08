@@ -9,7 +9,8 @@
 #import "DGBBookMainView.h"
 #import "DGBBook.h"
 #import "DGBBookCoverView.h"
-#import "DGBBookLoader.h"
+#import "DGBDataLoader.h"
+#import "AladinAPI.h"
 
 @interface DGBBookMainView ()
 
@@ -227,6 +228,7 @@
         NSString *author = [NSString stringWithFormat:@"%@ 지음", book.author];
         NSString *publisher = [NSString stringWithFormat:@"%@ 펴냄", book.publisher];
         NSString *pubDate = [NSString stringWithFormat:@"%@ 출판", [dateFormatter stringFromDate:book.pubDate]];
+        NSURL *coverURL = [NSURL URLWithString:book.coverURL];
         
         [self.titleLabel setText:title];
         [self.authorLabel setText:author];
@@ -235,12 +237,14 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [[DGBBookLoader sharedInstance] fetchCoverImageWithBook:book
-                                                     completion:^(UIImage *image) {
-                                                         __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                         
-                                                         [strongSelf updateBookCoverWithImage:image];
-                                                     }];
+        [[DGBDataLoader sharedInstance] fetchDataWithURL:coverURL
+                                              completion:^(NSData *data) {
+                                                  UIImage *image = [UIImage imageWithData:data];
+                                                  
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [weakSelf updateBookCoverWithImage:image];
+                                                  });
+                                              }];
     }
 }
 

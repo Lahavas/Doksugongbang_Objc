@@ -12,7 +12,7 @@
 #import "DGBBookMainView.h"
 #import "DGBBookListTableViewCell.h"
 #import "DGBBookDetailViewController.h"
-#import "DGBBookLoader.h"
+#import "DGBDataLoader.h"
 #import "AladinAPI.h"
 
 @interface DGBBookListViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -82,14 +82,17 @@
     NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemLookUp
                                           parameters:@{@"ItemId": isbnString,
                                                        @"ItemIdType": @"ISBN13"}];
-    [[DGBBookLoader sharedInstance] fetchBookWithURL:url
-                                          completion:^(DGBBook *book) {
-                                              __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                  
+    [[DGBDataLoader sharedInstance] fetchDataWithURL:url
+                                          completion:^(NSData *data) {
+                                              DGBBook *book = [AladinAPI bookParsingFromJSONData:data];
+                                              
                                               DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
                                               [bookDetailViewController setBook:book];
-                                              [strongSelf showViewController:bookDetailViewController
-                                                                      sender:strongSelf];
+                                              
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [weakSelf showViewController:bookDetailViewController
+                                                                        sender:weakSelf];
+                                              });
                                           }];
 }
 
