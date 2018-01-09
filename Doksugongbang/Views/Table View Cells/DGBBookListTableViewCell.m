@@ -7,6 +7,7 @@
 //
 
 #import "DGBBookListTableViewCell.h"
+#import "DGBBookMainView.h"
 
 @implementation DGBBookListTableViewCell
 
@@ -15,6 +16,13 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    [self.bookMainView resetBookCoverView];
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    [self.bookMainView resetBookCoverView];
 }
 
 @end

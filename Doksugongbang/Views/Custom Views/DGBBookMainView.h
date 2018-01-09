@@ -15,5 +15,6 @@
 #pragma mark - Public Methods
 
 - (void)setContentsWithBook:(DGBBook *)book;
+- (void)resetBookCoverView;
 
 @end

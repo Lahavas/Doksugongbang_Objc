@@ -144,17 +144,23 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
         __weak typeof(self) weakSelf = self;
 
         [[DGBDataLoader sharedInstance] fetchDataWithURL:coverURL
-                                              completion:^(NSData *data) {
+                                              completion:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                   image = [UIImage imageWithData:data];
                                                   [[DGBImageStore sharedInstance] setImage:image
                                                                                     forKey:isbn];
 
                                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [weakSelf.bookCoverImageView setImage:image];
+                                                      if ([self.associatedURL isEqual:response.URL]) {
+                                                          [weakSelf.bookCoverImageView setImage:image];
+                                                      }
                                                       [[DGBImageStore sharedInstance] setImage:image forKey:isbn];
                                                   });
                                               }];
     }
+}
+
+- (void)resetBookCoverImage {
+    [self.bookCoverImageView setImage:nil];
 }
 
 @end

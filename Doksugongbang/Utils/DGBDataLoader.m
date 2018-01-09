@@ -53,13 +53,13 @@
 
 #pragma mark - Fetching Methods
 
-- (void)fetchDataWithURL:(NSURL *)url completion:(void (^)(NSData *data))completion {
+- (void)fetchDataWithURL:(NSURL *)url completion:(void (^)(NSData *data, NSURLResponse *response, NSError *error))completion {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
     
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request
                                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                                         completion(data);
+                                                         completion(data, response, error);
                                                      }];
     [dataTask resume];
 }

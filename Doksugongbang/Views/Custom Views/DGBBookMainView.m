@@ -233,7 +233,7 @@
     
     if (book) {
         NSString *title = [NSString stringWithFormat:@"%@", book.title];
-        NSString *author = [NSString stringWithFormat:@"%@ 지음", book.author];
+        NSString *author = [NSString stringWithFormat:@"%@", book.author];
         NSString *publisher = [NSString stringWithFormat:@"%@ 펴냄", book.publisher];
         NSString *pubDate = [NSString stringWithFormat:@"%@ 출판", [dateFormatter stringFromDate:book.pubDate]];
         NSString *isbn = book.isbn;
@@ -243,9 +243,15 @@
         [self.authorLabel setText:author];
         [self.publisherLabel setText:publisher];
         [self.pubDateLabel setText:pubDate];
+        
+        [self.bookCoverView setAssociatedURL:coverURL];
         [self.bookCoverView updateImageWithURL:coverURL
                                           isbn:isbn];
     }
+}
+
+- (void)resetBookCoverView {
+    [self.bookCoverView resetBookCoverImage];
 }
 
 @end

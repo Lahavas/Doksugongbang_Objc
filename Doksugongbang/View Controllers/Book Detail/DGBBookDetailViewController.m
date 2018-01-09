@@ -45,7 +45,7 @@
                                           parameters:@{@"ItemId": self.isbn,
                                                        @"ItemIdType": @"ISBN13"}];
     [[DGBDataLoader sharedInstance] fetchDataWithURL:url
-                                          completion:^(NSData *data) {
+                                          completion:^(NSData *data, NSURLResponse *response, NSError *error) {
                                               DGBBook *book = [AladinAPI bookParsingFromJSONData:data];
                                               
                                               dispatch_async(dispatch_get_main_queue(), ^{

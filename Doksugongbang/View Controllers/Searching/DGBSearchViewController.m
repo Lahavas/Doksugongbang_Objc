@@ -121,7 +121,7 @@
                                                            @"SearchTarget": @"Book",
                                                            @"MaxResults": @"100"}];
         [[DGBDataLoader sharedInstance] fetchDataWithURL:url
-                                              completion:^(NSData *data) {
+                                              completion:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                   NSArray<DGBBook *> *bookList = [AladinAPI bookListParsingFromJSONData:data];
                                                   
                                                   dispatch_async(dispatch_get_main_queue(), ^{

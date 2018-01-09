@@ -10,8 +10,13 @@
 
 @interface DGBBookCoverView : UIView
 
+#pragma mark - Public Properties
+
+@property (strong, nonatomic) NSURL *associatedURL;
+
 #pragma mark - Public Methods
 
 - (void)updateImageWithURL:(NSURL *)coverURL isbn:(NSString *)isbn;
+- (void)resetBookCoverImage;
 
 @end

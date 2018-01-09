@@ -16,6 +16,6 @@
 
 #pragma mark - Fetching Methods
 
-- (void)fetchDataWithURL:(NSURL *)url completion:(void (^)(NSData *data))completion;
+- (void)fetchDataWithURL:(NSURL *)url completion:(void (^)(NSData *data, NSURLResponse *response, NSError *error))completion;
 
 @end
