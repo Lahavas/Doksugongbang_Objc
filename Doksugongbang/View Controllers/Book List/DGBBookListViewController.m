@@ -20,6 +20,7 @@
 #pragma mark - Private Properties
 
 @property (strong, nonatomic) UITableView *bookListTableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -35,6 +36,7 @@
     [self.navigationItem setTitle:self.bookListTitle];
     
     [self setUpBookListTableView];
+    [self setUpRefreshControl];
     [self setUpConstraints];
 }
 
@@ -62,6 +64,17 @@
                  forCellReuseIdentifier:[DGBBookListTableViewCell className]];
     
     [self.view addSubview:self.bookListTableView];
+}
+
+- (void)setUpRefreshControl {
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull To Refresh"]];
+    [self.refreshControl setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [self.refreshControl addTarget:self
+                            action:@selector(updateBookList)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    [self.bookListTableView addSubview:self.refreshControl];
 }
 
 - (void)setUpConstraints {
@@ -93,6 +106,10 @@
                                               weakSelf.bookList = [AladinAPI bookListParsingFromJSONData:data];
                                               
                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                  if ([weakSelf.refreshControl isRefreshing]) {
+                                                      [weakSelf.refreshControl endRefreshing];
+                                                  }
+                                                  
                                                   [weakSelf.bookListTableView reloadData];
                                               });
                                           }];
@@ -122,7 +139,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.bookList.count;
+    NSInteger bookListNumber = self.bookList.count;
+    
+    if (bookListNumber == 0) {
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    } else {
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    }
+    
+    return bookListNumber;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
