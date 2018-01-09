@@ -192,10 +192,14 @@
     [self.bookCoverView setContentHuggingPriority:999.0
                                           forAxis:UILayoutConstraintAxisVertical];
     
-    [self.titleLabel setContentCompressionResistancePriority:749.0
+    [self.titleLabel setContentCompressionResistancePriority:747.0
                                                      forAxis:UILayoutConstraintAxisVertical];
-    [self.titleLabel setContentHuggingPriority:252.0
-                                       forAxis:UILayoutConstraintAxisVertical];
+    [self.authorLabel setContentCompressionResistancePriority:748.0
+                                                      forAxis:UILayoutConstraintAxisVertical];
+    [self.publisherLabel setContentCompressionResistancePriority:749.0
+                                                         forAxis:UILayoutConstraintAxisVertical];
+    [self.pubDateLabel setContentCompressionResistancePriority:750.0
+                                                       forAxis:UILayoutConstraintAxisVertical];
     
     NSLayoutConstraint *bookCoverViewTopConstraint = [self.bookCoverView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor];
     NSLayoutConstraint *bookCoverViewBottomConstraint = [self.bookCoverView.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor];

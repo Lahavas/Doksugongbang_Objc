@@ -9,12 +9,14 @@
 #import "DGBBookDetailViewController.h"
 #import "DGBBook.h"
 #import "DGBBookMainView.h"
+#import "DGBBookDetailView.h"
 #import "AladinAPI.h"
 #import "DGBDataLoader.h"
 
 @interface DGBBookDetailViewController ()
 
 @property (weak, nonatomic) IBOutlet DGBBookMainView *bookMainView;
+@property (weak, nonatomic) IBOutlet DGBBookDetailView *bookDetailView;
 
 @end
 
@@ -50,6 +52,7 @@
                                               
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [weakSelf.bookMainView setContentsWithBook:book];
+                                                  [weakSelf.bookDetailView setContentsWithBook:book];
                                               });
                                           }];
 }
