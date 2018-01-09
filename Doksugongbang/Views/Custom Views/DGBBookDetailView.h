@@ -7,10 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SafariServices/SafariServices.h>
 
 @class DGBBook;
 
+@protocol DGBBookDetailViewDelegate
+@required
+- (void)bookDetailViewPresentSafariViewController:(SFSafariViewController *)safariViewController;
+@end
+
 @interface DGBBookDetailView : UIView
+
+#pragma mark - Public Properties
+
+@property (weak, nonatomic) id<DGBBookDetailViewDelegate> delegate;
 
 #pragma mark - Public Methods
 

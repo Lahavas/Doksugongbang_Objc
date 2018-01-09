@@ -13,7 +13,7 @@
 #import "AladinAPI.h"
 #import "DGBDataLoader.h"
 
-@interface DGBBookDetailViewController ()
+@interface DGBBookDetailViewController () <DGBBookDetailViewDelegate>
 
 @property (weak, nonatomic) IBOutlet DGBBookMainView *bookMainView;
 @property (weak, nonatomic) IBOutlet DGBBookDetailView *bookDetailView;
@@ -30,6 +30,8 @@
     [super viewDidLoad];
 
     [self.navigationItem setTitle:@"책 정보"];
+    
+    [self.bookDetailView setDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -55,6 +57,13 @@
                                                   [weakSelf.bookDetailView setContentsWithBook:book];
                                               });
                                           }];
+}
+
+#pragma mark - Book Detail View Delegate
+
+- (void)bookDetailViewPresentSafariViewController:(SFSafariViewController *)safariViewController {
+    [self showViewController:safariViewController
+                      sender:self];
 }
 
 @end

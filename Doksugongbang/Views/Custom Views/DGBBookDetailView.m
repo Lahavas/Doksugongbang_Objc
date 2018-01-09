@@ -13,6 +13,8 @@
 
 #pragma mark - Private Properties
 
+@property (strong, nonatomic) NSURL *amazonLinkURL;
+
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *categoryLabel;
 @property (strong, nonatomic) UILabel *pageLabel;
@@ -149,7 +151,10 @@
 #pragma mark - Actions
 
 - (void)openAmazonLink:(id)sender {
-    NSLog(@"openAmazonLink called");
+    if (self.amazonLinkURL) {
+        SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:self.amazonLinkURL];
+        [self.delegate bookDetailViewPresentSafariViewController:safariViewController];
+    }
 }
 
 #pragma mark - Public Methods
@@ -162,6 +167,7 @@
         NSString *bookDescription = [NSString stringWithFormat:@"%@", book.bookDescription];
         
         NSString *purchaseBookText = @"책 구매하기";
+        self.amazonLinkURL = [NSURL URLWithString:book.linkURL];
         
         [self.titleLabel setText:title];
         [self.categoryLabel setText:category];
@@ -170,7 +176,6 @@
         
         [self.purchaseButton setTitle:purchaseBookText
                              forState:UIControlStateNormal];
-        
         [self.purchaseButton addTarget:self
                                 action:@selector(openAmazonLink:)
                       forControlEvents:UIControlEventTouchUpInside];

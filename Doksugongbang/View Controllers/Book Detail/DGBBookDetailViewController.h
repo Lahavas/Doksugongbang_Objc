@@ -8,14 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class DGBBook;
-
 @interface DGBBookDetailViewController : UIViewController
 
 #pragma mark - Public Properties
 
 @property (strong, nonatomic) NSString *isbn;
-
-@property (strong, nonatomic) DGBBook *book;
 
 @end
