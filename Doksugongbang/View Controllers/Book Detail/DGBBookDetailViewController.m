@@ -8,10 +8,13 @@
 
 #import "DGBBookDetailViewController.h"
 #import "DGBBook.h"
+#import "DGBBookMainView.h"
 #import "AladinAPI.h"
 #import "DGBDataLoader.h"
 
 @interface DGBBookDetailViewController ()
+
+@property (weak, nonatomic) IBOutlet DGBBookMainView *bookMainView;
 
 @end
 
@@ -25,8 +28,6 @@
     [super viewDidLoad];
 
     [self.navigationItem setTitle:@"책 정보"];
-    
-    NSLog(@"%@", self.book);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,7 +48,9 @@
                                           completion:^(NSData *data) {
                                               DGBBook *book = [AladinAPI bookParsingFromJSONData:data];
                                               
-                                              NSLog(@"%@", book);
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [weakSelf.bookMainView setContentsWithBook:book];
+                                              });
                                           }];
 }
 

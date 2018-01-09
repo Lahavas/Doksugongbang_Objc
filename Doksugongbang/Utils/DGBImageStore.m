@@ -12,7 +12,7 @@
 
 #pragma mark - Private Properties
 
-@property (strong, nonatomic) NSCache *cache;
+@property (strong, nonatomic) NSCache<NSString *, UIImage *> *imageCache;
 
 @end
 
@@ -45,7 +45,7 @@
     self = [super init];
     
     if (self) {
-        
+        _imageCache = [[NSCache alloc] init];
     }
     
     return self;
@@ -54,11 +54,12 @@
 #pragma mark - Image Methods
 
 - (void)setImage:(UIImage *)image forKey:(NSString *)key {
-    [self.cache setObject:image forKey:key];
+    [self.imageCache setObject:image
+                        forKey:key];
 }
 
 - (UIImage *)imageForKey:(NSString *)key {
-    return [self.cache objectForKey:key];
+    return [self.imageCache objectForKey:key];
 }
 
 - (void)deleteImageForKey:(NSString *)key {
@@ -66,7 +67,7 @@
         return;
     }
     
-    [self.cache removeObjectForKey:key];
+    [self.imageCache removeObjectForKey:key];
 }
 
 @end

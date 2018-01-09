@@ -9,10 +9,18 @@
 #import "DGBBookMainView.h"
 #import "DGBBook.h"
 #import "DGBBookCoverView.h"
-#import "DGBDataLoader.h"
-#import "AladinAPI.h"
 
 @interface DGBBookMainView ()
+
+#pragma mark - Private Properties
+
+@property (strong, nonatomic) DGBBookCoverView *bookCoverView;
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *authorLabel;
+@property (strong, nonatomic) UILabel *publisherLabel;
+@property (strong, nonatomic) UILabel *pubDateLabel;
+@property (strong, nonatomic) UIButton *likeButton;
+@property (strong, nonatomic) UIButton *bookButton;
 
 @property (strong, nonatomic) UIStackView *labelStackView;
 @property (strong, nonatomic) UIStackView *buttonStackView;
@@ -228,28 +236,16 @@
         NSString *author = [NSString stringWithFormat:@"%@ 지음", book.author];
         NSString *publisher = [NSString stringWithFormat:@"%@ 펴냄", book.publisher];
         NSString *pubDate = [NSString stringWithFormat:@"%@ 출판", [dateFormatter stringFromDate:book.pubDate]];
+        NSString *isbn = book.isbn;
         NSURL *coverURL = [NSURL URLWithString:book.coverURL];
         
         [self.titleLabel setText:title];
         [self.authorLabel setText:author];
         [self.publisherLabel setText:publisher];
         [self.pubDateLabel setText:pubDate];
-        
-        __weak typeof(self) weakSelf = self;
-        
-        [[DGBDataLoader sharedInstance] fetchDataWithURL:coverURL
-                                              completion:^(NSData *data) {
-                                                  UIImage *image = [UIImage imageWithData:data];
-                                                  
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [weakSelf updateBookCoverWithImage:image];
-                                                  });
-                                              }];
+        [self.bookCoverView updateImageWithURL:coverURL
+                                          isbn:isbn];
     }
-}
-
-- (void)updateBookCoverWithImage:(UIImage *)image {
-    [self.bookCoverView setBookCoverImage:image];
 }
 
 @end
