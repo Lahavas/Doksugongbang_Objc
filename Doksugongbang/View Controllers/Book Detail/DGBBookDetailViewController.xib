@@ -15,6 +15,7 @@
             <connections>
                 <outlet property="bookDetailView" destination="Mzd-gd-KoH" id="cwS-mi-5UU"/>
                 <outlet property="bookMainView" destination="9Xv-QU-qCz" id="7YL-M0-98Y"/>
+                <outlet property="scrollView" destination="lH6-he-JJd" id="h4u-0q-7E6"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

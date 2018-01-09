@@ -17,6 +17,9 @@
 
 @property (weak, nonatomic) IBOutlet DGBBookMainView *bookMainView;
 @property (weak, nonatomic) IBOutlet DGBBookDetailView *bookDetailView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -32,6 +35,8 @@
     [self.navigationItem setTitle:@"책 정보"];
     
     [self.bookDetailView setDelegate:self];
+    
+    [self setUpRefreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -41,6 +46,17 @@
 }
 
 #pragma mark - Set Up Methods
+
+- (void)setUpRefreshControl {
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull To Refresh"]];
+    [self.refreshControl setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [self.refreshControl addTarget:self
+                            action:@selector(updateBook)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    [self.scrollView addSubview:self.refreshControl];
+}
 
 - (void)updateBook {
     __weak typeof(self) weakSelf = self;
@@ -53,6 +69,10 @@
                                               DGBBook *book = [AladinAPI bookParsingFromJSONData:data];
                                               
                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                  if ([weakSelf.refreshControl isRefreshing]) {
+                                                      [weakSelf.refreshControl endRefreshing];
+                                                  }
+                                                  
                                                   [weakSelf.bookMainView setContentsWithBook:book];
                                                   [weakSelf.bookDetailView setContentsWithBook:book];
                                               });
