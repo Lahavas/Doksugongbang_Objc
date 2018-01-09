@@ -12,7 +12,7 @@
 
 #pragma mark - Public Properties
 
-@property (strong, nonatomic) NSURL *associatedURL;
+@property (strong, nonatomic) NSURL *recentURL;
 
 #pragma mark - Public Methods
 

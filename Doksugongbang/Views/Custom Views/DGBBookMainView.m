@@ -243,8 +243,6 @@
         [self.authorLabel setText:author];
         [self.publisherLabel setText:publisher];
         [self.pubDateLabel setText:pubDate];
-        
-        [self.bookCoverView setAssociatedURL:coverURL];
         [self.bookCoverView updateImageWithURL:coverURL
                                           isbn:isbn];
     }

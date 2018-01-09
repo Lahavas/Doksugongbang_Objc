@@ -70,4 +70,12 @@
     [self.imageCache removeObjectForKey:key];
 }
 
+- (BOOL)isExistImageForKey:(NSString *)key {
+    if ([self.imageCache objectForKey:key]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end
