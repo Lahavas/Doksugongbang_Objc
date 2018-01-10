@@ -58,10 +58,8 @@
     [self.bookListTableView setEstimatedRowHeight:160.0];
     [self.bookListTableView setRowHeight:UITableViewAutomaticDimension];
     
-    UINib *bookListCellNib = [UINib nibWithNibName:[DGBBookListTableViewCell className]
-                                            bundle:nil];
-    [self.bookListTableView registerNib:bookListCellNib
-                 forCellReuseIdentifier:[DGBBookListTableViewCell className]];
+    [self.bookListTableView registerClass:[DGBBookListTableViewCell class]
+                   forCellReuseIdentifier:[DGBBookListTableViewCell className]];
     
     [self.view addSubview:self.bookListTableView];
 }

@@ -42,6 +42,21 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        [self setUpSubviews];
+        
+        [self.bookCoverImageView addObserver:self
+                                  forKeyPath:@"image"
+                                     options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
+                                     context:DGBBookCoverImageViewContext];
+    }
+    
+    return self;
+}
+
 #pragma mark - Deallocation
 
 - (void)dealloc {

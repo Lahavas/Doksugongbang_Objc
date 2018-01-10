@@ -71,10 +71,8 @@
     [self.searchResultTableView setEstimatedRowHeight:44.0];
     [self.searchResultTableView setRowHeight:UITableViewAutomaticDimension];
     
-    UINib *bookTitleCellNib = [UINib nibWithNibName:[DGBBookTitleTableViewCell className]
-                                             bundle:nil];
-    [self.searchResultTableView registerNib:bookTitleCellNib
-                     forCellReuseIdentifier:[DGBBookTitleTableViewCell className]];
+    [self.searchResultTableView registerClass:[DGBBookTitleTableViewCell class]
+                       forCellReuseIdentifier:[DGBBookTitleTableViewCell className]];
     
     [self.view addSubview:self.searchResultTableView];
 }

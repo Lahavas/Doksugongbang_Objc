@@ -12,6 +12,6 @@
 
 #pragma mark - Public IBOutlet Properties
 
-@property (weak, nonatomic) IBOutlet UILabel *bookTitleLabel;
+@property (strong, nonatomic) UILabel *bookTitleLabel;
 
 @end

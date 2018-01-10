@@ -14,6 +14,6 @@
 
 #pragma mark - Public Properties
 
-@property (weak, nonatomic) IBOutlet DGBBookMainView *bookMainView;
+@property (strong, nonatomic) DGBBookMainView *bookMainView;
 
 @end
