@@ -10,6 +10,7 @@
 #import "DGBBook.h"
 #import "DGBBookCoverCollectionViewCell.h"
 #import "DGBBookCoverView.h"
+#import "DGBBookDetailViewController.h"
 #import "UICollectionViewCell+DGBCellNameGenerator.h"
 #import "DGBDataLoader.h"
 #import "AladinAPI.h"
@@ -136,6 +137,17 @@
                                                   [weakSelf.bookCoverCollectionView reloadData];
                                               });
                                           }];
+}
+
+#pragma mark - Collection View Delegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    DGBBook *book = self.bookList[indexPath.row];
+    
+    DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
+    [bookDetailViewController setIsbn:book.isbn];
+    
+    self.presentBookDetailBlock(bookDetailViewController);
 }
 
 #pragma mark - Collection View Data Source

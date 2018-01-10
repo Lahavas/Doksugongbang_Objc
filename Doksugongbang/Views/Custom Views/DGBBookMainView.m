@@ -9,6 +9,7 @@
 #import "DGBBookMainView.h"
 #import "DGBBook.h"
 #import "DGBBookCoverView.h"
+#import "NSString+DGBHTMLEncoder.h"
 
 @interface DGBBookMainView ()
 
@@ -228,7 +229,7 @@
     }
     
     if (book) {
-        NSString *title = [NSString stringWithFormat:@"%@", book.title];
+        NSString *title = [NSString stringWithHTMLEncodedString:book.title];
         NSString *author = [NSString stringWithFormat:@"%@", book.author];
         NSString *publisher = [NSString stringWithFormat:@"%@ 펴냄", book.publisher];
         NSString *pubDate = [NSString stringWithFormat:@"%@ 출판", [dateFormatter stringFromDate:book.pubDate]];

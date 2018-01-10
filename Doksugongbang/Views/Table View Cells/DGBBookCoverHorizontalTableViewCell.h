@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AladinAPI.h"
+@class DGBBookDetailViewController;
 
 typedef NS_ENUM(NSUInteger, DGBBookCoverCollectionType) {
     DGBBookCoverCollectionItemNew = 0,
@@ -18,7 +18,13 @@ typedef NS_ENUM(NSUInteger, DGBBookCoverCollectionType) {
     DGBBookCoverCollectionFavoriteBook = 4
 };
 
+typedef void (^PresentBookDetailBlock)(DGBBookDetailViewController *);
+
 @interface DGBBookCoverHorizontalTableViewCell : UITableViewCell
+
+#pragma mark - Public Properties
+
+@property (copy, nonatomic) PresentBookDetailBlock presentBookDetailBlock;
 
 #pragma mark - Public Methods
 

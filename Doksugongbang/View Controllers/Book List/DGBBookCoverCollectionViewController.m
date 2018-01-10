@@ -9,6 +9,7 @@
 #import "DGBBookCoverCollectionViewController.h"
 #import "DGBBookCoverHorizontalTableViewCell.h"
 #import "UITableViewCell+DGBCellNameGenerator.h"
+#import "DGBBookDetailViewController.h"
 
 @interface DGBBookCoverCollectionViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -86,6 +87,12 @@
     
     NSString *bookCoverCollectionType = self.bookCoverCollectionTypeList[indexPath.section];
     
+    __weak typeof(self) weakSelf = self;
+    
+    [bookCoverHorizontalTableViewCell setPresentBookDetailBlock:^(DGBBookDetailViewController *bookDetailViewController) {
+        [weakSelf showViewController:bookDetailViewController
+                              sender:weakSelf];
+    }];
     [bookCoverHorizontalTableViewCell setUpBookCoverCollectionType:bookCoverCollectionType];
     
     return bookCoverHorizontalTableViewCell;
