@@ -18,6 +18,8 @@
     
     if (self) {
         [self setUpTitleLabel];
+        
+        [self setUpConstraints];
     }
     
     return self;
@@ -37,8 +39,6 @@
     [self.bookTitleLabel setNumberOfLines:2];
     
     [self.contentView addSubview:self.bookTitleLabel];
-    
-    [self setUpConstraints];
 }
 
 - (void)setUpConstraints {

@@ -19,6 +19,8 @@
     
     if (self) {
         [self setUpBookMainView];
+        
+        [self setUpConstraints];
     }
     
     return self;
@@ -44,8 +46,6 @@
     _bookMainView = [[DGBBookMainView alloc] initWithFrame:CGRectZero];
     
     [self.contentView addSubview:self.bookMainView];
-    
-    [self setUpConstraints];
 }
 
 - (void)setUpConstraints {

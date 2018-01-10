@@ -92,9 +92,7 @@
 
 - (void)presentBookListViewControllerWithTitle:(NSString *)title {
     
-    DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
-    
-    [bookListViewController setBookListTitle:[NSString stringWithFormat:@"%@", title]];
+    DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] initWithBookKeyword:title];
     
     [self showViewController:bookListViewController
                       sender:self];

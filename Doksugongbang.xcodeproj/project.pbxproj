@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE29F4541FFB1D4C00493711 /* DGBHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F4521FFB1D4C00493711 /* DGBHomeViewController.m */; };
-		CE29F4551FFB1D4C00493711 /* DGBHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE29F4531FFB1D4C00493711 /* DGBHomeViewController.xib */; };
 		CE29F4591FFB1D6900493711 /* DGBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F4571FFB1D6900493711 /* DGBSearchViewController.m */; };
 		CE29F45E1FFB1DC200493711 /* DGBFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F45C1FFB1DC200493711 /* DGBFeedViewController.m */; };
 		CE29F45F1FFB1DC200493711 /* DGBFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE29F45D1FFB1DC200493711 /* DGBFeedViewController.xib */; };
@@ -21,6 +19,8 @@
 		CE29F4771FFB62AA00493711 /* AladinConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F4761FFB62AA00493711 /* AladinConfig.m */; };
 		CE51E3C62005B0970082662A /* DGBBookCoverCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51E3C42005B0970082662A /* DGBBookCoverCollectionViewCell.m */; };
 		CE51E3CA2005B1470082662A /* UICollectionViewCell+DGBCellNameGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51E3C92005B1470082662A /* UICollectionViewCell+DGBCellNameGenerator.m */; };
+		CE51E3CD2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51E3CC2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.m */; };
+		CE51E3D02005E04D0082662A /* DGBBookCoverCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51E3CF2005E04D0082662A /* DGBBookCoverCollectionViewController.m */; };
 		CE6026EA1FF4AE760089F2CA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6026E91FF4AE760089F2CA /* AppDelegate.m */; };
 		CE6026F21FF4AE760089F2CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6026F11FF4AE760089F2CA /* Assets.xcassets */; };
 		CE6026F51FF4AE760089F2CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE6026F31FF4AE760089F2CA /* LaunchScreen.storyboard */; };
@@ -59,9 +59,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CE29F4511FFB1D4C00493711 /* DGBHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBHomeViewController.h; sourceTree = "<group>"; };
-		CE29F4521FFB1D4C00493711 /* DGBHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBHomeViewController.m; sourceTree = "<group>"; };
-		CE29F4531FFB1D4C00493711 /* DGBHomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DGBHomeViewController.xib; sourceTree = "<group>"; };
 		CE29F4561FFB1D6900493711 /* DGBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBSearchViewController.h; sourceTree = "<group>"; };
 		CE29F4571FFB1D6900493711 /* DGBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBSearchViewController.m; sourceTree = "<group>"; };
 		CE29F45B1FFB1DC200493711 /* DGBFeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBFeedViewController.h; sourceTree = "<group>"; };
@@ -83,6 +80,10 @@
 		CE51E3C42005B0970082662A /* DGBBookCoverCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookCoverCollectionViewCell.m; sourceTree = "<group>"; };
 		CE51E3C82005B1470082662A /* UICollectionViewCell+DGBCellNameGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+DGBCellNameGenerator.h"; sourceTree = "<group>"; };
 		CE51E3C92005B1470082662A /* UICollectionViewCell+DGBCellNameGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+DGBCellNameGenerator.m"; sourceTree = "<group>"; };
+		CE51E3CB2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookCoverHorizontalTableViewCell.h; sourceTree = "<group>"; };
+		CE51E3CC2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookCoverHorizontalTableViewCell.m; sourceTree = "<group>"; };
+		CE51E3CE2005E04D0082662A /* DGBBookCoverCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookCoverCollectionViewController.h; sourceTree = "<group>"; };
+		CE51E3CF2005E04D0082662A /* DGBBookCoverCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookCoverCollectionViewController.m; sourceTree = "<group>"; };
 		CE6026E51FF4AE760089F2CA /* Doksugongbang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doksugongbang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6026E81FF4AE760089F2CA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE6026E91FF4AE760089F2CA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -318,6 +319,8 @@
 				CE9457941FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.m */,
 				CE7B76741FFDC28200B2B58A /* DGBBookListTableViewCell.h */,
 				CE7B76751FFDC28200B2B58A /* DGBBookListTableViewCell.m */,
+				CE51E3CB2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.h */,
+				CE51E3CC2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.m */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -334,11 +337,10 @@
 		CE9457991FFCC41F00D1D5D0 /* Book List */ = {
 			isa = PBXGroup;
 			children = (
-				CE29F4511FFB1D4C00493711 /* DGBHomeViewController.h */,
-				CE29F4521FFB1D4C00493711 /* DGBHomeViewController.m */,
-				CE29F4531FFB1D4C00493711 /* DGBHomeViewController.xib */,
 				CE94579A1FFCC8F400D1D5D0 /* DGBBookListViewController.h */,
 				CE94579B1FFCC8F400D1D5D0 /* DGBBookListViewController.m */,
+				CE51E3CE2005E04D0082662A /* DGBBookCoverCollectionViewController.h */,
+				CE51E3CF2005E04D0082662A /* DGBBookCoverCollectionViewController.m */,
 			);
 			path = "Book List";
 			sourceTree = "<group>";
@@ -464,7 +466,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE29F4691FFB1E7000493711 /* DGBUserInfoViewController.xib in Resources */,
-				CE29F4551FFB1D4C00493711 /* DGBHomeViewController.xib in Resources */,
 				CE29F45F1FFB1DC200493711 /* DGBFeedViewController.xib in Resources */,
 				CE7B768A1FFE1E7300B2B58A /* DGBBookDetailViewController.xib in Resources */,
 				CE29F4641FFB1E5000493711 /* DGBBookLogListViewController.xib in Resources */,
@@ -512,10 +513,11 @@
 				CE7B76771FFDC28200B2B58A /* DGBBookListTableViewCell.m in Sources */,
 				CE6026EA1FF4AE760089F2CA /* AppDelegate.m in Sources */,
 				CE7B76811FFDF30B00B2B58A /* DGBBookCoverView.m in Sources */,
+				CE51E3D02005E04D0082662A /* DGBBookCoverCollectionViewController.m in Sources */,
 				CE29F4591FFB1D6900493711 /* DGBSearchViewController.m in Sources */,
 				CEE415C5200369C0000962E7 /* DGBImageStore.m in Sources */,
+				CE51E3CD2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.m in Sources */,
 				CE94579C1FFCC8F400D1D5D0 /* DGBBookListViewController.m in Sources */,
-				CE29F4541FFB1D4C00493711 /* DGBHomeViewController.m in Sources */,
 				CE29F4771FFB62AA00493711 /* AladinConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

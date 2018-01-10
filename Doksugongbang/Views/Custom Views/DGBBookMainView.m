@@ -38,6 +38,8 @@
     
     if (self) {
         [self setUpSubviews];
+        
+        [self setUpConstraints];
     }
     
     return self;
@@ -48,6 +50,8 @@
     
     if (self) {
         [self setUpSubviews];
+        
+        [self setUpConstraints];
     }
     
     return self;
@@ -77,8 +81,6 @@
     [self setUpButtonsConfigurations];
     [self setUpLabelStackViewConfigurations];
     [self setUpButtonStackViewConfigurations];
-    
-    [self setUpConstraints];
 }
 
 - (void)setUpBookCoverView {

@@ -14,7 +14,10 @@
 
 #pragma mark - Public Properties
 
-@property (strong, nonatomic) NSString *bookListTitle;
 @property (strong, nonatomic) NSArray<DGBBook *> *bookList;
+
+#pragma mark - Initialization
+
+- (instancetype)initWithBookKeyword:(NSString *)keyword;
 
 @end

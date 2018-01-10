@@ -37,6 +37,8 @@
     
     if (self) {
         [self setUpSubviews];
+        
+        [self setUpConstraints];
     }
     
     return self;
@@ -47,6 +49,8 @@
     
     if (self) {
         [self setUpSubviews];
+        
+        [self setUpConstraints];
     }
     
     return self;
@@ -66,8 +70,6 @@
     [self setUpLabelsConfigurations];
     [self setUpPurchaseButton];
     [self setUpLabelStackView];
-    
-    [self setUpConstraints];
 }
 
 - (void)setUpLabelsConfigurations {

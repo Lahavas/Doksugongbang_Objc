@@ -12,8 +12,10 @@
 @class DGBBook;
 
 @protocol DGBBookDetailViewDelegate
+
 @required
 - (void)bookDetailViewPresentSafariViewController:(SFSafariViewController *)safariViewController;
+
 @end
 
 @interface DGBBookDetailView : UIView

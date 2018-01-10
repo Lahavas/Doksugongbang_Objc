@@ -33,6 +33,8 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
     if (self) {
         [self setUpSubviews];
         
+        [self setUpConstraints];
+        
         [self.bookCoverImageView addObserver:self
                                   forKeyPath:@"image"
                                      options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
@@ -47,6 +49,8 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
     
     if (self) {
         [self setUpSubviews];
+        
+        [self setUpConstraints];
         
         [self.bookCoverImageView addObserver:self
                                   forKeyPath:@"image"
@@ -105,8 +109,6 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
     
     [self addSubview:self.bookCoverImageView];
     [self addSubview:self.spinner];
-    
-    [self setUpConstraints];
 }
 
 - (void)setUpBookCoverImageShadow {
