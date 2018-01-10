@@ -84,15 +84,10 @@
     
     UILayoutGuide *rootViewSafeAreaLayoutGuide = self.view.safeAreaLayoutGuide;
     
-    NSLayoutConstraint *searchResultTableViewTopConstraint = [self.searchResultTableView.topAnchor constraintEqualToAnchor:rootViewSafeAreaLayoutGuide.topAnchor];
-    NSLayoutConstraint *searchResultTableViewBottomConstraint = [self.searchResultTableView.bottomAnchor constraintEqualToAnchor:rootViewSafeAreaLayoutGuide.bottomAnchor];
-    NSLayoutConstraint *searchResultTableViewLeadingConstraint = [self.searchResultTableView.leadingAnchor constraintEqualToAnchor:rootViewSafeAreaLayoutGuide.leadingAnchor];
-    NSLayoutConstraint *searchResultTableViewTrailingConstraint = [self.searchResultTableView.trailingAnchor constraintEqualToAnchor:rootViewSafeAreaLayoutGuide.trailingAnchor];
-    
-    [NSLayoutConstraint activateConstraints:@[searchResultTableViewTopConstraint,
-                                              searchResultTableViewBottomConstraint,
-                                              searchResultTableViewLeadingConstraint,
-                                              searchResultTableViewTrailingConstraint]];
+    [NSLayoutConstraint activateConstraints:@[[self.searchResultTableView.topAnchor constraintEqualToAnchor:rootViewSafeAreaLayoutGuide.topAnchor],
+                                              [self.searchResultTableView.bottomAnchor constraintEqualToAnchor:rootViewSafeAreaLayoutGuide.bottomAnchor],
+                                              [self.searchResultTableView.leadingAnchor constraintEqualToAnchor:rootViewSafeAreaLayoutGuide.leadingAnchor],
+                                              [self.searchResultTableView.trailingAnchor constraintEqualToAnchor:rootViewSafeAreaLayoutGuide.trailingAnchor]]];
 }
 
 #pragma mark - Private Methods

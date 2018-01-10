@@ -130,23 +130,15 @@
     [self.labelStackView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.purchaseButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    NSLayoutConstraint *labelStackViewTopConstraint = [self.labelStackView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor];
-    NSLayoutConstraint *labelStackViewLeadingConstraint = [self.labelStackView.leadingAnchor constraintEqualToAnchor:marginsGuide.leadingAnchor];
-    NSLayoutConstraint *labelStackViewTrailingConstraint = [self.labelStackView.trailingAnchor constraintEqualToAnchor:marginsGuide.trailingAnchor];
+    [NSLayoutConstraint activateConstraints:@[[self.labelStackView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor],
+                                              [self.labelStackView.leadingAnchor constraintEqualToAnchor:marginsGuide.leadingAnchor],
+                                              [self.labelStackView.trailingAnchor constraintEqualToAnchor:marginsGuide.trailingAnchor]]];
     
-    NSLayoutConstraint *purchaseButtonTopConstraint = [self.purchaseButton.topAnchor constraintEqualToSystemSpacingBelowAnchor:self.descriptionLabel.lastBaselineAnchor
-                                                                                                                    multiplier:1.0];
-    NSLayoutConstraint *purchaseButtonBottomConstraint = [self.purchaseButton.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor];
-    NSLayoutConstraint *purchaseButtonLeadingConstraint = [self.purchaseButton.leadingAnchor constraintEqualToAnchor:marginsGuide.leadingAnchor];
-    NSLayoutConstraint *purchaseButtonTrailingConstraint = [self.purchaseButton.trailingAnchor constraintEqualToAnchor:marginsGuide.trailingAnchor];
-    
-    [NSLayoutConstraint activateConstraints:@[labelStackViewTopConstraint,
-                                              labelStackViewLeadingConstraint,
-                                              labelStackViewTrailingConstraint]];
-    [NSLayoutConstraint activateConstraints:@[purchaseButtonTopConstraint,
-                                              purchaseButtonBottomConstraint,
-                                              purchaseButtonLeadingConstraint,
-                                              purchaseButtonTrailingConstraint]];
+    [NSLayoutConstraint activateConstraints:@[[self.purchaseButton.topAnchor constraintEqualToSystemSpacingBelowAnchor:self.descriptionLabel.lastBaselineAnchor
+                                                                                                            multiplier:1.0],
+                                              [self.purchaseButton.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor],
+                                              [self.purchaseButton.leadingAnchor constraintEqualToAnchor:marginsGuide.leadingAnchor],
+                                              [self.purchaseButton.trailingAnchor constraintEqualToAnchor:marginsGuide.trailingAnchor]]];
 }
 
 #pragma mark - Actions

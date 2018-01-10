@@ -115,22 +115,15 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
     [self.bookCoverImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.spinner setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    NSLayoutConstraint *bookCoverImageViewTopConstraint = [self.bookCoverImageView.topAnchor constraintEqualToAnchor:self.topAnchor];
-    NSLayoutConstraint *bookCoverImageViewBottomConstraint = [self.bottomAnchor constraintEqualToAnchor:self.bookCoverImageView.bottomAnchor
-                                                                                               constant:standardMargin];
-    NSLayoutConstraint *bookCoverImageViewLeadingConstraint = [self.bookCoverImageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor];
-    NSLayoutConstraint *bookCoverImageViewTrailingConstraint = [self.trailingAnchor constraintEqualToAnchor:self.bookCoverImageView.trailingAnchor
-                                                                                                   constant:standardMargin];
+    [NSLayoutConstraint activateConstraints:@[[self.bookCoverImageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+                                              [self.bottomAnchor constraintEqualToAnchor:self.bookCoverImageView.bottomAnchor
+                                                                                constant:standardMargin],
+                                              [self.bookCoverImageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+                                              [self.trailingAnchor constraintEqualToAnchor:self.bookCoverImageView.trailingAnchor
+                                                                                  constant:standardMargin]]];
     
-    NSLayoutConstraint *spinnerCenterXConstraint = [self.spinner.centerXAnchor constraintEqualToAnchor:self.centerXAnchor];
-    NSLayoutConstraint *spinnerCenterYConstraint = [self.spinner.centerYAnchor constraintEqualToAnchor:self.centerYAnchor];
-    
-    [NSLayoutConstraint activateConstraints:@[bookCoverImageViewTopConstraint,
-                                              bookCoverImageViewBottomConstraint,
-                                              bookCoverImageViewLeadingConstraint,
-                                              bookCoverImageViewTrailingConstraint]];
-    [NSLayoutConstraint activateConstraints:@[spinnerCenterXConstraint,
-                                              spinnerCenterYConstraint]];
+    [NSLayoutConstraint activateConstraints:@[[self.spinner.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+                                              [self.spinner.centerYAnchor constraintEqualToAnchor:self.centerYAnchor]]];
 }
 
 #pragma mark - Public Methods

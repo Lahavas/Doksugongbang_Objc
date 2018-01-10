@@ -201,29 +201,19 @@
     [self.pubDateLabel setContentCompressionResistancePriority:750.0
                                                        forAxis:UILayoutConstraintAxisVertical];
     
-    NSLayoutConstraint *bookCoverViewTopConstraint = [self.bookCoverView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor];
-    NSLayoutConstraint *bookCoverViewBottomConstraint = [self.bookCoverView.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor];
-    NSLayoutConstraint *bookCoverViewLeadingConstraint = [self.bookCoverView.leadingAnchor constraintEqualToAnchor:marginsGuide.leadingAnchor];
+    [NSLayoutConstraint activateConstraints:@[[self.bookCoverView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor],
+                                              [self.bookCoverView.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor],
+                                              [self.bookCoverView.leadingAnchor constraintEqualToAnchor:marginsGuide.leadingAnchor]]];
     
-    NSLayoutConstraint *labelStackViewTopConstraint = [self.labelStackView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor];
-    NSLayoutConstraint *labelStackViewLeadingConstraint = [self.labelStackView.leadingAnchor constraintEqualToAnchor:self.bookCoverView.trailingAnchor
-                                                                                                            constant:standardMargin];
-    NSLayoutConstraint *labelStackViewTrailingConstraint = [self.labelStackView.trailingAnchor constraintEqualToAnchor:marginsGuide.trailingAnchor];
+    [NSLayoutConstraint activateConstraints:@[[self.labelStackView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor],
+                                              [self.labelStackView.leadingAnchor constraintEqualToAnchor:self.bookCoverView.trailingAnchor
+                                                                                                constant:standardMargin],
+                                              [self.labelStackView.trailingAnchor constraintEqualToAnchor:marginsGuide.trailingAnchor]]];
     
-    NSLayoutConstraint *buttonStackViewTopConstraint = [self.buttonStackView.topAnchor constraintGreaterThanOrEqualToAnchor:self.labelStackView.bottomAnchor
-                                                                                                                   constant:standardMargin];
-    NSLayoutConstraint *buttonStackViewTrailingConstraint = [self.buttonStackView.trailingAnchor constraintEqualToAnchor:marginsGuide.trailingAnchor];
-    NSLayoutConstraint *buttonStackViewBottomConstraint = [self.buttonStackView.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor];
-    
-    [NSLayoutConstraint activateConstraints:@[bookCoverViewTopConstraint,
-                                              bookCoverViewBottomConstraint,
-                                              bookCoverViewLeadingConstraint]];
-    [NSLayoutConstraint activateConstraints:@[labelStackViewTopConstraint,
-                                              labelStackViewLeadingConstraint,
-                                              labelStackViewTrailingConstraint]];
-    [NSLayoutConstraint activateConstraints:@[buttonStackViewTopConstraint,
-                                              buttonStackViewTrailingConstraint,
-                                              buttonStackViewBottomConstraint]];
+    [NSLayoutConstraint activateConstraints:@[[self.buttonStackView.topAnchor constraintGreaterThanOrEqualToAnchor:self.labelStackView.bottomAnchor
+                                                                                                          constant:standardMargin],
+                                              [self.buttonStackView.trailingAnchor constraintEqualToAnchor:marginsGuide.trailingAnchor],
+                                              [self.buttonStackView.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor]]];
 }
 
 #pragma mark - Public Methods
