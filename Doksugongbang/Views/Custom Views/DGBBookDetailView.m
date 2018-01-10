@@ -8,6 +8,7 @@
 
 #import "DGBBookDetailView.h"
 #import "DGBBook.h"
+#import "NSString+DGBHTMLEncoder.h"
 
 @interface DGBBookDetailView ()
 
@@ -164,7 +165,7 @@
         NSString *title = @"상세 정보";
         NSString *category = book.category;
         NSString *page = [NSString stringWithFormat:@"%ldp", book.page];
-        NSString *bookDescription = [NSString stringWithFormat:@"%@", book.bookDescription];
+        NSString *bookDescription = [NSString stringWithHTMLEncodedString:book.bookDescription];
         
         NSString *purchaseBookText = @"책 구매하기";
         self.amazonLinkURL = [NSURL URLWithString:book.linkURL];

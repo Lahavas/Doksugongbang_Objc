@@ -82,8 +82,9 @@
 #pragma mark - Book Detail View Delegate
 
 - (void)bookDetailViewPresentSafariViewController:(SFSafariViewController *)safariViewController {
-    [self showViewController:safariViewController
-                      sender:self];
+    [self presentViewController:safariViewController
+                       animated:YES
+                     completion:nil];
 }
 
 @end
