@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "DGBHomeViewController.h"
+#import "DGBBookCoverCollectionViewController.h"
 #import "DGBSearchViewController.h"
 #import "DGBFeedViewController.h"
 #import "DGBBookLogListViewController.h"
@@ -27,13 +27,13 @@
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     
-    DGBHomeViewController *homeViewController = [[DGBHomeViewController alloc] init];
+    DGBBookCoverCollectionViewController *bookCoverCollectionViewController = [[DGBBookCoverCollectionViewController alloc] init];
     DGBSearchViewController *searchViewController = [[DGBSearchViewController alloc] init];
     DGBFeedViewController *feedViewController = [[DGBFeedViewController alloc] init];
     DGBBookLogListViewController *bookLogListViewController = [[DGBBookLogListViewController alloc] init];
     DGBUserInfoViewController *userInfoViewController = [[DGBUserInfoViewController alloc] init];
     
-    UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:bookCoverCollectionViewController];
     UINavigationController *searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     UINavigationController *feedNavigationController = [[UINavigationController alloc] initWithRootViewController:feedViewController];
     UINavigationController *bookLogNavigationController = [[UINavigationController alloc] initWithRootViewController:bookLogListViewController];

@@ -189,8 +189,8 @@
 		CE17F8791FF5D3C800B7694A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CE51E3C22005B0400082662A /* Collection View Cells */,
 				CE94579D1FFCDA1300D1D5D0 /* Custom Views */,
+				CE51E3C22005B0400082662A /* Collection View Cells */,
 				CE9457921FFCB1F400D1D5D0 /* Table View Cells */,
 			);
 			path = Views;

@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:self.bookListTitle];
+    [self.navigationItem setTitle:self.keyword];
     
     [self setUpBookListTableView];
     [self setUpRefreshControl];
@@ -90,7 +90,7 @@
     __weak typeof(self) weakSelf = self;
     
     NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
-                                          parameters:@{@"Query": self.bookListTitle,
+                                          parameters:@{@"Query": self.keyword,
                                                        @"QueryType": @"Keyword",
                                                        @"SearchTarget": @"Book",
                                                        @"MaxResults": @"100"}];

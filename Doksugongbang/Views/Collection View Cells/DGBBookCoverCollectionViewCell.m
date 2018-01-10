@@ -67,12 +67,12 @@
     [self.titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     [NSLayoutConstraint activateConstraints:@[[self.bookCoverView.topAnchor constraintEqualToAnchor:self.topAnchor],
-                                              [self.bookCoverView.bottomAnchor constraintEqualToSystemSpacingBelowAnchor:self.titleLabel.topAnchor
-                                                                                                              multiplier:1.0],
                                               [self.bookCoverView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
                                               [self.bookCoverView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]]];
     
-    [NSLayoutConstraint activateConstraints:@[[self.titleLabel.bottomAnchor constraintLessThanOrEqualToSystemSpacingBelowAnchor:self.bottomAnchor
+    [NSLayoutConstraint activateConstraints:@[[self.titleLabel.topAnchor constraintEqualToSystemSpacingBelowAnchor:self.bookCoverView.bottomAnchor
+                                                                                                              multiplier:1.0],
+                                              [self.titleLabel.bottomAnchor constraintLessThanOrEqualToSystemSpacingBelowAnchor:self.bottomAnchor
                                                                                                                      multiplier:1.0],
                                               [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
                                               [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]]];
