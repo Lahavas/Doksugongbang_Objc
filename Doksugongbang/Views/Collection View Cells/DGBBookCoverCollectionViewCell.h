@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class DGBBookCoverView;
+@class DGBBook;
 
 @interface DGBBookCoverCollectionViewCell : UICollectionViewCell
 
-#pragma mark - Public IBOutlet
+#pragma mark - Public Methods
 
-@property (strong, nonatomic) DGBBookCoverView *bookCoverView;
-@property (strong, nonatomic) UILabel *titleLabel;
+- (void)updateBookCoverWithBook:(DGBBook *)book;
 
 @end

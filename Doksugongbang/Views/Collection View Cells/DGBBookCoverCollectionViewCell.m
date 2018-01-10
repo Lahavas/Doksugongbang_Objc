@@ -8,6 +8,18 @@
 
 #import "DGBBookCoverCollectionViewCell.h"
 #import "DGBBookCoverView.h"
+#import "DGBBook.h"
+
+@interface DGBBookCoverCollectionViewCell ()
+
+#pragma mark - Private Properties
+
+@property (strong, nonatomic) DGBBookCoverView *bookCoverView;
+@property (strong, nonatomic) UILabel *titleLabel;
+
+@end
+
+#pragma mark -
 
 @implementation DGBBookCoverCollectionViewCell
 
@@ -18,6 +30,8 @@
     
     if (self) {
         [self setUpSubviews];
+        
+        [self setUpConstraints];
     }
     
     return self;
@@ -28,18 +42,33 @@
     
     if (self) {
         [self setUpSubviews];
+        
+        [self setUpConstraints];
     }
     
     return self;
 }
+
+#pragma mark - Cell Life Cycle
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [self.bookCoverView resetBookCoverImage];
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    [self.bookCoverView resetBookCoverImage];
+}
+
 
 #pragma mark - Set Up Methods
 
 - (void)setUpSubviews {
     [self setUpBookCoverView];
     [self setUpTitleLabel];
-    
-    [self setUpConstraints];
 }
 
 - (void)setUpBookCoverView {
@@ -76,6 +105,16 @@
                                                                                                                      multiplier:1.0],
                                               [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
                                               [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]]];
+}
+
+- (void)updateBookCoverWithBook:(DGBBook *)book {
+    NSURL *coverURL = [NSURL URLWithString:book.coverURL];
+    NSString *title = book.title;
+    NSString *isbn = book.isbn;
+    
+    [self.bookCoverView updateImageWithURL:coverURL
+                                      isbn:isbn];
+    [self.titleLabel setText:title];
 }
 
 @end

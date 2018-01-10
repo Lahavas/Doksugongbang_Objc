@@ -165,14 +165,7 @@
                                                                                                             forIndexPath:indexPath];
     
     DGBBook *book = self.bookList[indexPath.row];
-    
-    NSURL *coverURL = [NSURL URLWithString:book.coverURL];
-    NSString *title = book.title;
-    NSString *isbn = book.isbn;
-    
-    [bookCoverCollectionViewCell.bookCoverView updateImageWithURL:coverURL
-                                                             isbn:isbn];
-    [bookCoverCollectionViewCell.titleLabel setText:title];
+    [bookCoverCollectionViewCell updateBookCoverWithBook:book];
     
     return bookCoverCollectionViewCell;
 }

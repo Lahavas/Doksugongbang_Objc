@@ -14,7 +14,7 @@
 #import "DGBDataLoader.h"
 #import "AladinAPI.h"
 
-@interface DGBSearchViewController () <UISearchResultsUpdating, UISearchBarDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface DGBSearchViewController () <UISearchBarDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 #pragma mark - Private Properties
 
@@ -36,8 +36,6 @@
     
     [self.navigationItem setTitle:@"책 검색"];
     
-    self.bookList = [[NSArray alloc] init];
-    
     [self setDefinesPresentationContext:YES];
     
     [self setUpSearchController];
@@ -51,7 +49,6 @@
 - (void)setUpSearchController {
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
-    [self.searchController setSearchResultsUpdater:self];
     [self.searchController setObscuresBackgroundDuringPresentation:NO];
     
     [self.searchController.searchBar setPlaceholder:@"책, 저자, 출판사 검색"];
@@ -91,40 +88,11 @@
 #pragma mark - Private Methods
 
 - (void)presentBookListViewControllerWithTitle:(NSString *)title {
-    
     DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
     [bookListViewController setKeyword:title];
     
     [self showViewController:bookListViewController
                       sender:self];
-}
-
-#pragma mark - Search Results Updating
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSString *searchString = searchController.searchBar.text;
-    
-    if (searchString.length > 0) {
-        __weak typeof(self) weakSelf = self;
-        
-        NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
-                                              parameters:@{@"Query": searchString,
-                                                           @"QueryType": @"Keyword",
-                                                           @"SearchTarget": @"Book",
-                                                           @"MaxResults": @"100"}];
-        [[DGBDataLoader sharedInstance] fetchDataWithURL:url
-                                              completion:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                  NSArray<DGBBook *> *bookList = [AladinAPI bookListParsingFromJSONData:data];
-                                                  
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [weakSelf setBookList:bookList];
-                                                      [weakSelf.searchResultTableView reloadData];
-                                                  });
-                                              }];
-    } else {
-        self.bookList = nil;
-        [self.searchResultTableView reloadData];
-    }
 }
 
 #pragma mark - Search Bar Delegate

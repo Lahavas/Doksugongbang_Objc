@@ -16,6 +16,8 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
 
 #pragma mark - Private Properties
 
+@property (strong, nonatomic) NSURL *recentURL;
+
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) UIImageView *bookCoverImageView;
 
@@ -146,7 +148,7 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
 #pragma mark - Public Methods
 
 - (void)updateImageWithURL:(NSURL *)coverURL isbn:(NSString *)isbn {
-    _recentURL = coverURL;
+    self.recentURL = coverURL;
     
     DGBImageStore *imageStore = [DGBImageStore sharedInstance];
 

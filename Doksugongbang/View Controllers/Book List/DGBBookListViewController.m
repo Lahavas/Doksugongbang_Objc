@@ -19,6 +19,8 @@
 
 #pragma mark - Private Properties
 
+@property (strong, nonatomic) NSArray<DGBBook *> *bookList;
+
 @property (strong, nonatomic) UITableView *bookListTableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
