@@ -7,19 +7,20 @@
 //
 
 #import "DGBBookListViewController.h"
+#import "UITableViewCell+DGBCellNameGenerator.h"
 #import "DGBBook.h"
 #import "DGBBookMainView.h"
 #import "DGBBookListTableViewCell.h"
 #import "DGBBookDetailViewController.h"
-#import "DGBBookLoader.h"
+#import "DGBDataLoader.h"
 #import "AladinAPI.h"
 
 @interface DGBBookListViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (copy, nonatomic) NSString *bookTitle;
-@property (copy, nonatomic) NSArray<DGBBook *> *bookList;
+#pragma mark - Private Properties
 
 @property (strong, nonatomic) UITableView *bookListTableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -32,13 +33,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:[NSString stringWithFormat:@"검색어: %@", self.bookTitle]];
+    [self.navigationItem setTitle:self.bookListTitle];
     
     [self setUpBookListTableView];
-    
-    [self.view addSubview:self.bookListTableView];
-    
+    [self setUpRefreshControl];
     [self setUpConstraints];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self updateBookList];
 }
 
 #pragma mark - Set Up Methods
@@ -50,10 +55,26 @@
     [self.bookListTableView setDelegate:self];
     [self.bookListTableView setDataSource:self];
     
+    [self.bookListTableView setEstimatedRowHeight:160.0];
+    [self.bookListTableView setRowHeight:UITableViewAutomaticDimension];
+    
     UINib *bookListCellNib = [UINib nibWithNibName:[DGBBookListTableViewCell className]
                                             bundle:nil];
     [self.bookListTableView registerNib:bookListCellNib
                  forCellReuseIdentifier:[DGBBookListTableViewCell className]];
+    
+    [self.view addSubview:self.bookListTableView];
+}
+
+- (void)setUpRefreshControl {
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull To Refresh"]];
+    [self.refreshControl setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [self.refreshControl addTarget:self
+                            action:@selector(updateBookList)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    [self.bookListTableView addSubview:self.refreshControl];
 }
 
 - (void)setUpConstraints {
@@ -72,47 +93,43 @@
                                               bookListTableViewTrailingConstraint]];
 }
 
-#pragma mark - Public Methods
-
-- (void)showBookListControllerWithTitle:(NSString *)title completion:(void (^)(void))completion {
-    [self setBookTitle:title];
-    
+- (void)updateBookList {
     __weak typeof(self) weakSelf = self;
     
     NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
-                                          parameters:@{@"Query": self.bookTitle,
+                                          parameters:@{@"Query": self.bookListTitle,
                                                        @"QueryType": @"Keyword",
                                                        @"SearchTarget": @"Book",
                                                        @"MaxResults": @"100"}];
-    [[DGBBookLoader sharedInstance] fetchBookListWithURL:url
-                                              completion:^(NSArray<DGBBook *> *bookList) {
-                                                  __strong typeof(weakSelf) strongSelf = weakSelf;
+    [[DGBDataLoader sharedInstance] fetchDataWithURL:url
+                                          completion:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                              weakSelf.bookList = [AladinAPI bookListParsingFromJSONData:data];
+                                              
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  if ([weakSelf.refreshControl isRefreshing]) {
+                                                      [weakSelf.refreshControl endRefreshing];
+                                                  }
                                                   
-                                                  [strongSelf setBookList:bookList];
-                                                  [strongSelf.bookListTableView reloadData];
-                                              }];
+                                                  [weakSelf.bookListTableView reloadData];
+                                              });
+                                          }];
+}
+
+#pragma mark - Private Methods
+
+- (void)presentBookDetailViewControllerWithISBN:(NSString *)isbnString {
+    DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
+    [bookDetailViewController setIsbn:isbnString];
     
-    completion();
+    [self showViewController:bookDetailViewController
+                      sender:self];
 }
 
 #pragma mark - Table View Delegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 160.0;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DGBBook *book = self.bookList[indexPath.row];
-    
-    DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
-    bookDetailViewController.book = book;
-    
-    [self showViewController:bookDetailViewController
-                      sender:self];
+    [self presentBookDetailViewControllerWithISBN:book.isbn];
 }
 
 #pragma mark - Table View Data Source
@@ -122,7 +139,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.bookList.count;
+    NSInteger bookListNumber = self.bookList.count;
+    
+    if (bookListNumber == 0) {
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    } else {
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    }
+    
+    return bookListNumber;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

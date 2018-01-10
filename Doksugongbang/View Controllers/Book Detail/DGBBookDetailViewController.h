@@ -1,5 +1,5 @@
 //
-//  DGBBookListTableViewCell.h
+//  DGBBookDetailViewController.h
 //  Doksugongbang
 //
 //  Created by USER on 2018. 1. 4..
@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class DGBBookMainView;
-
-@interface DGBBookListTableViewCell : UITableViewCell
+@interface DGBBookDetailViewController : UIViewController
 
 #pragma mark - Public Properties
 
-@property (weak, nonatomic) IBOutlet DGBBookMainView *bookMainView;
+@property (strong, nonatomic) NSString *isbn;
 
 @end

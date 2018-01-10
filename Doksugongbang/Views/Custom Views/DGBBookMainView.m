@@ -9,9 +9,18 @@
 #import "DGBBookMainView.h"
 #import "DGBBook.h"
 #import "DGBBookCoverView.h"
-#import "DGBBookLoader.h"
 
 @interface DGBBookMainView ()
+
+#pragma mark - Private Properties
+
+@property (strong, nonatomic) DGBBookCoverView *bookCoverView;
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *authorLabel;
+@property (strong, nonatomic) UILabel *publisherLabel;
+@property (strong, nonatomic) UILabel *pubDateLabel;
+@property (strong, nonatomic) UIButton *likeButton;
+@property (strong, nonatomic) UIButton *bookButton;
 
 @property (strong, nonatomic) UIStackView *labelStackView;
 @property (strong, nonatomic) UIStackView *buttonStackView;
@@ -63,18 +72,19 @@
 #pragma mark - Set Up Methods
 
 - (void)setUpSubviews {
-    _bookCoverView = [[DGBBookCoverView alloc] initWithFrame:CGRectZero];
-    
+    [self setUpBookCoverView];
     [self setUpLabelsConfigurations];
     [self setUpButtonsConfigurations];
     [self setUpLabelStackViewConfigurations];
     [self setUpButtonStackViewConfigurations];
     
-    [self addSubview:self.bookCoverView];
-    [self addSubview:self.labelStackView];
-    [self addSubview:self.buttonStackView];
-    
     [self setUpConstraints];
+}
+
+- (void)setUpBookCoverView {
+    _bookCoverView = [[DGBBookCoverView alloc] initWithFrame:CGRectZero];
+    
+    [self addSubview:self.bookCoverView];
 }
 
 - (void)setUpLabelsConfigurations {
@@ -146,6 +156,8 @@
     
     [self.labelStackView setCustomSpacing:standardSpace * 2.0
                                 afterView:self.titleLabel];
+    
+    [self addSubview:self.labelStackView];
 }
 
 - (void)setUpButtonStackViewConfigurations {
@@ -158,6 +170,8 @@
     [self.buttonStackView setSpacing:standardSpace];
     [self.buttonStackView setAlignment:UIStackViewAlignmentFill];
     [self.buttonStackView setDistribution:UIStackViewDistributionFillEqually];
+    
+    [self addSubview:self.buttonStackView];
 }
 
 - (void)setUpConstraints {
@@ -178,10 +192,14 @@
     [self.bookCoverView setContentHuggingPriority:999.0
                                           forAxis:UILayoutConstraintAxisVertical];
     
-    [self.titleLabel setContentCompressionResistancePriority:749.0
+    [self.titleLabel setContentCompressionResistancePriority:747.0
                                                      forAxis:UILayoutConstraintAxisVertical];
-    [self.titleLabel setContentHuggingPriority:252.0
-                                       forAxis:UILayoutConstraintAxisVertical];
+    [self.authorLabel setContentCompressionResistancePriority:748.0
+                                                      forAxis:UILayoutConstraintAxisVertical];
+    [self.publisherLabel setContentCompressionResistancePriority:749.0
+                                                         forAxis:UILayoutConstraintAxisVertical];
+    [self.pubDateLabel setContentCompressionResistancePriority:750.0
+                                                       forAxis:UILayoutConstraintAxisVertical];
     
     NSLayoutConstraint *bookCoverViewTopConstraint = [self.bookCoverView.topAnchor constraintEqualToAnchor:marginsGuide.topAnchor];
     NSLayoutConstraint *bookCoverViewBottomConstraint = [self.bookCoverView.bottomAnchor constraintEqualToAnchor:marginsGuide.bottomAnchor];
@@ -219,28 +237,23 @@
     
     if (book) {
         NSString *title = [NSString stringWithFormat:@"%@", book.title];
-        NSString *author = [NSString stringWithFormat:@"%@ 지음", book.author];
+        NSString *author = [NSString stringWithFormat:@"%@", book.author];
         NSString *publisher = [NSString stringWithFormat:@"%@ 펴냄", book.publisher];
         NSString *pubDate = [NSString stringWithFormat:@"%@ 출판", [dateFormatter stringFromDate:book.pubDate]];
+        NSString *isbn = book.isbn;
+        NSURL *coverURL = [NSURL URLWithString:book.coverURL];
         
         [self.titleLabel setText:title];
         [self.authorLabel setText:author];
         [self.publisherLabel setText:publisher];
         [self.pubDateLabel setText:pubDate];
-        
-        __weak typeof(self) weakSelf = self;
-        
-        [[DGBBookLoader sharedInstance] fetchCoverImageWithBook:book
-                                                     completion:^(UIImage *image) {
-                                                         __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                         
-                                                         [strongSelf updateBookCoverWithImage:image];
-                                                     }];
+        [self.bookCoverView updateImageWithURL:coverURL
+                                          isbn:isbn];
     }
 }
 
-- (void)updateBookCoverWithImage:(UIImage *)image {
-    [self.bookCoverView setBookCoverImage:image];
+- (void)resetBookCoverView {
+    [self.bookCoverView resetBookCoverImage];
 }
 
 @end

@@ -11,24 +11,18 @@
 
 @implementation DGBBookListTableViewCell
 
-#pragma mark - Class Methods
-
-+ (NSString *)className {
-    return NSStringFromClass([self class]);
-}
-
 #pragma mark - Cell Life Cycle
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [self.bookMainView updateBookCoverWithImage:nil];
+    [self.bookMainView resetBookCoverView];
 }
 
 - (void)prepareForReuse {
     [super prepareForReuse];
     
-    [self.bookMainView updateBookCoverWithImage:nil];
+    [self.bookMainView resetBookCoverView];
 }
 
 @end

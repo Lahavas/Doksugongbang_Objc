@@ -7,6 +7,10 @@
 //
 
 #import "DGBBookCoverView.h"
+#import "DGBImageStore.h"
+#import "DGBDataLoader.h"
+
+static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
 
 @interface DGBBookCoverView ()
 
@@ -28,22 +32,38 @@
     
     if (self) {
         [self setUpSubviews];
+        
+        [self.bookCoverImageView addObserver:self
+                                  forKeyPath:@"image"
+                                     options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
+                                     context:DGBBookCoverImageViewContext];
     }
     
     return self;
 }
 
-#pragma mark - Accessor Methods
+#pragma mark - Deallocation
 
-- (void)setBookCoverImage:(UIImage *)bookCoverImage {
-    if (bookCoverImage == nil) {
-        [self.spinner startAnimating];
+- (void)dealloc {
+    [self.bookCoverImageView removeObserver:self
+                                 forKeyPath:@"image"];
+}
+
+#pragma mark - Key-Value Observing
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (context == DGBBookCoverImageViewContext) {
+        if (change[NSKeyValueChangeNewKey] == [NSNull null]) {
+            [self.spinner startAnimating];
+        } else {
+            [self.spinner stopAnimating];
+        }
     } else {
-        [self.spinner stopAnimating];
+        [super observeValueForKeyPath:keyPath
+                             ofObject:object
+                               change:change
+                              context:context];
     }
-    
-    _bookCoverImage = bookCoverImage;
-    [self.bookCoverImageView setImage:bookCoverImage];
 }
 
 #pragma mark - Intrinsic Content Size
@@ -111,6 +131,38 @@
                                               bookCoverImageViewTrailingConstraint]];
     [NSLayoutConstraint activateConstraints:@[spinnerCenterXConstraint,
                                               spinnerCenterYConstraint]];
+}
+
+#pragma mark - Public Methods
+
+- (void)updateImageWithURL:(NSURL *)coverURL isbn:(NSString *)isbn {
+    _recentURL = coverURL;
+    
+    DGBImageStore *imageStore = [DGBImageStore sharedInstance];
+
+    if ([imageStore isExistImageForKey:isbn]) {
+        UIImage *image = [imageStore imageForKey:isbn];
+        [self.bookCoverImageView setImage:image];
+    } else {
+        __weak typeof(self) weakSelf = self;
+
+        [[DGBDataLoader sharedInstance] fetchDataWithURL:coverURL
+                                              completion:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                  UIImage *image = [UIImage imageWithData:data];
+                                                  [imageStore setImage:image
+                                                                forKey:isbn];
+
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      if ([weakSelf.recentURL isEqual:response.URL]) {
+                                                          [weakSelf.bookCoverImageView setImage:image];
+                                                      }
+                                                  });
+                                              }];
+    }
+}
+
+- (void)resetBookCoverImage {
+    [self.bookCoverImageView setImage:nil];
 }
 
 @end

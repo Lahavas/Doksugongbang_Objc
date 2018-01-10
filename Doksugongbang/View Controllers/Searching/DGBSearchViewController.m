@@ -7,17 +7,18 @@
 //
 
 #import "DGBSearchViewController.h"
+#import "UITableViewCell+DGBCellNameGenerator.h"
 #import "DGBBook.h"
 #import "DGBBookListViewController.h"
 #import "DGBBookTitleTableViewCell.h"
-#import "DGBBookLoader.h"
+#import "DGBDataLoader.h"
 #import "AladinAPI.h"
 
 @interface DGBSearchViewController () <UISearchResultsUpdating, UISearchBarDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 #pragma mark - Private Properties
 
-@property (copy, nonatomic) NSArray<DGBBook *> *bookList;
+@property (strong, nonatomic) NSArray<DGBBook *> *bookList;
 
 @property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) UITableView *searchResultTableView;
@@ -41,8 +42,6 @@
     
     [self setUpSearchController];
     [self setUpSearchResultTableView];
-    
-    [self.view addSubview:self.searchResultTableView];
     
     [self setUpConstraints];
 }
@@ -69,10 +68,15 @@
     [self.searchResultTableView setDelegate:self];
     [self.searchResultTableView setDataSource:self];
     
+    [self.searchResultTableView setEstimatedRowHeight:44.0];
+    [self.searchResultTableView setRowHeight:UITableViewAutomaticDimension];
+    
     UINib *bookTitleCellNib = [UINib nibWithNibName:[DGBBookTitleTableViewCell className]
                                              bundle:nil];
     [self.searchResultTableView registerNib:bookTitleCellNib
                      forCellReuseIdentifier:[DGBBookTitleTableViewCell className]];
+    
+    [self.view addSubview:self.searchResultTableView];
 }
 
 - (void)setUpConstraints {
@@ -93,17 +97,14 @@
 
 #pragma mark - Private Methods
 
-- (void)showBookListControllerWithTitle:(NSString *)title {
-    __weak typeof(self) weakSelf = self;
+- (void)presentBookListViewControllerWithTitle:(NSString *)title {
     
     DGBBookListViewController *bookListViewController = [[DGBBookListViewController alloc] init];
-    [bookListViewController showBookListControllerWithTitle:title
-                                                 completion:^{
-                                                     __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                     
-                                                     [strongSelf showViewController:bookListViewController
-                                                                            sender:strongSelf];
-                                                 }];
+    
+    [bookListViewController setBookListTitle:[NSString stringWithFormat:@"%@", title]];
+    
+    [self showViewController:bookListViewController
+                      sender:self];
 }
 
 #pragma mark - Search Results Updating
@@ -119,12 +120,15 @@
                                                            @"QueryType": @"Keyword",
                                                            @"SearchTarget": @"Book",
                                                            @"MaxResults": @"100"}];
-        [[DGBBookLoader sharedInstance] fetchBookListWithURL:url
-                                                  completion:^(NSArray<DGBBook *> *bookList) {
-                                                      __strong typeof(weakSelf) strongSelf = weakSelf;
-                                                      [strongSelf setBookList:bookList];
-                                                      [strongSelf.searchResultTableView reloadData];
-                                                  }];
+        [[DGBDataLoader sharedInstance] fetchDataWithURL:url
+                                              completion:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                  NSArray<DGBBook *> *bookList = [AladinAPI bookListParsingFromJSONData:data];
+                                                  
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [weakSelf setBookList:bookList];
+                                                      [weakSelf.searchResultTableView reloadData];
+                                                  });
+                                              }];
     } else {
         self.bookList = nil;
         [self.searchResultTableView reloadData];
@@ -136,7 +140,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     NSString *bookTitle = searchBar.text;
     
-    [self showBookListControllerWithTitle:bookTitle];
+    [self presentBookListViewControllerWithTitle:bookTitle];
 }
 
 #pragma mark - Scroll View Delegate
@@ -147,18 +151,10 @@
 
 #pragma mark - Table View Delegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DGBBook *book = self.bookList[indexPath.row];
     
-    [self showBookListControllerWithTitle:book.title];
+    [self presentBookListViewControllerWithTitle:book.title];
 }
 
 #pragma mark - Table View Data Source

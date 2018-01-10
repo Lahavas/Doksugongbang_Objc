@@ -14,8 +14,4 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *bookTitleLabel;
 
-#pragma mark - Class Methods
-
-+ (NSString *)className;
-
 @end

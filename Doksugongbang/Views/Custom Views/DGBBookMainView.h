@@ -9,25 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class DGBBook;
-@class DGBBookCoverView;
 
 @interface DGBBookMainView : UIView
-
-#pragma mark - Public Properties
-
-@property (strong, nonatomic) DGBBook *book;
-
-@property (strong, nonatomic) DGBBookCoverView *bookCoverView;
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UILabel *authorLabel;
-@property (strong, nonatomic) UILabel *publisherLabel;
-@property (strong, nonatomic) UILabel *pubDateLabel;
-@property (strong, nonatomic) UIButton *likeButton;
-@property (strong, nonatomic) UIButton *bookButton;
 
 #pragma mark - Public Methods
 
 - (void)setContentsWithBook:(DGBBook *)book;
-- (void)updateBookCoverWithImage:(UIImage *)image;
+- (void)resetBookCoverView;
 
 @end
