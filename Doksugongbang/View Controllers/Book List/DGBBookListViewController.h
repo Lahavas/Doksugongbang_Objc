@@ -14,7 +14,6 @@
 
 #pragma mark - Public Properties
 
-@property (strong, nonatomic) NSString *bookListTitle;
-@property (strong, nonatomic) NSArray<DGBBook *> *bookList;
+@property (strong, nonatomic) NSString *keyword;
 
 @end

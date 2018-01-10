@@ -63,7 +63,7 @@
     
     NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemLookUp
                                           parameters:@{@"ItemId": self.isbn,
-                                                       @"ItemIdType": @"ISBN13"}];
+                                                       @"ItemIdType": @"ISBN"}];
     [[DGBDataLoader sharedInstance] fetchDataWithURL:url
                                           completion:^(NSData *data, NSURLResponse *response, NSError *error) {
                                               DGBBook *book = [AladinAPI bookParsingFromJSONData:data];

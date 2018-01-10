@@ -16,6 +16,8 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
 
 #pragma mark - Private Properties
 
+@property (strong, nonatomic) NSURL *recentURL;
+
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) UIImageView *bookCoverImageView;
 
@@ -32,6 +34,25 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
     
     if (self) {
         [self setUpSubviews];
+        
+        [self setUpConstraints];
+        
+        [self.bookCoverImageView addObserver:self
+                                  forKeyPath:@"image"
+                                     options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
+                                     context:DGBBookCoverImageViewContext];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        [self setUpSubviews];
+        
+        [self setUpConstraints];
         
         [self.bookCoverImageView addObserver:self
                                   forKeyPath:@"image"
@@ -90,8 +111,6 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
     
     [self addSubview:self.bookCoverImageView];
     [self addSubview:self.spinner];
-    
-    [self setUpConstraints];
 }
 
 - (void)setUpBookCoverImageShadow {
@@ -129,7 +148,7 @@ static void *DGBBookCoverImageViewContext = &DGBBookCoverImageViewContext;
 #pragma mark - Public Methods
 
 - (void)updateImageWithURL:(NSURL *)coverURL isbn:(NSString *)isbn {
-    _recentURL = coverURL;
+    self.recentURL = coverURL;
     
     DGBImageStore *imageStore = [DGBImageStore sharedInstance];
 

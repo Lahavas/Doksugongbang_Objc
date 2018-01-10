@@ -19,6 +19,8 @@
 
 #pragma mark - Private Properties
 
+@property (strong, nonatomic) NSArray<DGBBook *> *bookList;
+
 @property (strong, nonatomic) UITableView *bookListTableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -33,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:self.bookListTitle];
+    [self.navigationItem setTitle:self.keyword];
     
     [self setUpBookListTableView];
     [self setUpRefreshControl];
@@ -58,10 +60,8 @@
     [self.bookListTableView setEstimatedRowHeight:160.0];
     [self.bookListTableView setRowHeight:UITableViewAutomaticDimension];
     
-    UINib *bookListCellNib = [UINib nibWithNibName:[DGBBookListTableViewCell className]
-                                            bundle:nil];
-    [self.bookListTableView registerNib:bookListCellNib
-                 forCellReuseIdentifier:[DGBBookListTableViewCell className]];
+    [self.bookListTableView registerClass:[DGBBookListTableViewCell class]
+                   forCellReuseIdentifier:[DGBBookListTableViewCell className]];
     
     [self.view addSubview:self.bookListTableView];
 }
@@ -92,7 +92,7 @@
     __weak typeof(self) weakSelf = self;
     
     NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
-                                          parameters:@{@"Query": self.bookListTitle,
+                                          parameters:@{@"Query": self.keyword,
                                                        @"QueryType": @"Keyword",
                                                        @"SearchTarget": @"Book",
                                                        @"MaxResults": @"100"}];
@@ -134,15 +134,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger bookListNumber = self.bookList.count;
-    
-    if (bookListNumber == 0) {
-        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    } else {
-        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-    }
-    
-    return bookListNumber;
+    return self.bookList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

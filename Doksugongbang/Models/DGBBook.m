@@ -49,7 +49,7 @@
         NSDictionary *subInfo = json[@"subInfo"];
         NSString *pubDateString = json[@"pubDate"];
         
-        _isbn = json[@"isbn13"];
+        _isbn = json[@"isbn"];
         
         _title = json[@"title"];
         _author = json[@"author"];

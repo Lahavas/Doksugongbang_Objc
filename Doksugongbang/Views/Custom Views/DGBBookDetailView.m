@@ -32,11 +32,25 @@
 
 #pragma mark - Initialization
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    
+    if (self) {
+        [self setUpSubviews];
+        
+        [self setUpConstraints];
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     
     if (self) {
         [self setUpSubviews];
+        
+        [self setUpConstraints];
     }
     
     return self;
@@ -56,8 +70,6 @@
     [self setUpLabelsConfigurations];
     [self setUpPurchaseButton];
     [self setUpLabelStackView];
-    
-    [self setUpConstraints];
 }
 
 - (void)setUpLabelsConfigurations {
