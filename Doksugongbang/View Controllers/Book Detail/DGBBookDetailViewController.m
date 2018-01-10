@@ -15,10 +15,6 @@
 
 @interface DGBBookDetailViewController () <DGBBookDetailViewDelegate>
 
-#pragma mark - Private Properties
-
-@property (strong, nonatomic) NSString *isbn;
-
 @property (weak, nonatomic) IBOutlet DGBBookMainView *bookMainView;
 @property (weak, nonatomic) IBOutlet DGBBookDetailView *bookDetailView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -30,18 +26,6 @@
 #pragma mark -
 
 @implementation DGBBookDetailViewController
-
-#pragma mark - Initialization
-
-- (instancetype)initWithBookISBN:(NSString *)isbn {
-    self = [super init];
-    
-    if (self) {
-        _isbn = isbn;
-    }
-    
-    return self;
-}
 
 #pragma mark - View Life Cycle
 

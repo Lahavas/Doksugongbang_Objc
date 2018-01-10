@@ -10,8 +10,8 @@
 
 @interface DGBBookDetailViewController : UIViewController
 
-#pragma mark - Initialization
+#pragma mark - Public Properties
 
-- (instancetype)initWithBookISBN:(NSString *)isbn;
+@property (strong, nonatomic) NSString *isbn;
 
 @end

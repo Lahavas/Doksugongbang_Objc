@@ -19,8 +19,6 @@
 
 #pragma mark - Private Properties
 
-@property (strong, nonatomic) NSString *keyword;
-
 @property (strong, nonatomic) UITableView *bookListTableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -30,24 +28,12 @@
 
 @implementation DGBBookListViewController
 
-#pragma mark - Initialization
-
-- (instancetype)initWithBookKeyword:(NSString *)keyword {
-    self = [super init];
-    
-    if (self) {
-        _keyword = keyword;
-    }
-    
-    return self;
-}
-
 #pragma mark - View Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:self.keyword];
+    [self.navigationItem setTitle:self.bookListTitle];
     
     [self setUpBookListTableView];
     [self setUpRefreshControl];
@@ -104,7 +90,7 @@
     __weak typeof(self) weakSelf = self;
     
     NSURL *url = [AladinAPI aladinAPIURLWithPathName:AladinAPIItemSearch
-                                          parameters:@{@"Query": self.keyword,
+                                          parameters:@{@"Query": self.bookListTitle,
                                                        @"QueryType": @"Keyword",
                                                        @"SearchTarget": @"Book",
                                                        @"MaxResults": @"100"}];
@@ -125,7 +111,8 @@
 #pragma mark - Private Methods
 
 - (void)presentBookDetailViewControllerWithISBN:(NSString *)isbnString {
-    DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] initWithBookISBN:isbnString];
+    DGBBookDetailViewController *bookDetailViewController = [[DGBBookDetailViewController alloc] init];
+    [bookDetailViewController setIsbn:isbnString];
     
     [self showViewController:bookDetailViewController
                       sender:self];
