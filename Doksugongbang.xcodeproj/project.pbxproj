@@ -16,7 +16,6 @@
 		CE29F4691FFB1E7000493711 /* DGBUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE29F4671FFB1E7000493711 /* DGBUserInfoViewController.xib */; };
 		CE29F46C1FFB327A00493711 /* DGBBook.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F46B1FFB327A00493711 /* DGBBook.m */; };
 		CE29F4741FFB4D4900493711 /* AladinAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F4731FFB4D4900493711 /* AladinAPI.m */; };
-		CE29F4771FFB62AA00493711 /* AladinConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29F4761FFB62AA00493711 /* AladinConfig.m */; };
 		CE51E3C62005B0970082662A /* DGBBookCoverCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51E3C42005B0970082662A /* DGBBookCoverCollectionViewCell.m */; };
 		CE51E3CA2005B1470082662A /* UICollectionViewCell+DGBCellNameGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51E3C92005B1470082662A /* UICollectionViewCell+DGBCellNameGenerator.m */; };
 		CE51E3CD2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51E3CC2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.m */; };
@@ -27,6 +26,7 @@
 		CE6026F81FF4AE760089F2CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6026F71FF4AE760089F2CA /* main.m */; };
 		CE6027021FF4AE760089F2CA /* DoksugongbangTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6027011FF4AE760089F2CA /* DoksugongbangTests.m */; };
 		CE60270D1FF4AE760089F2CA /* DoksugongbangUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE60270C1FF4AE760089F2CA /* DoksugongbangUITests.m */; };
+		CE693FD1200C745A00115075 /* AladinConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CE693FD0200C745A00115075 /* AladinConfig.m */; };
 		CE780DFD2004B51100486C33 /* DGBBookDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE780DFC2004B51100486C33 /* DGBBookDetailView.m */; };
 		CE780E002004CBAC00486C33 /* NSString+DGBHTMLEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE780DFF2004CBAB00486C33 /* NSString+DGBHTMLEncoder.m */; };
 		CE7B76771FFDC28200B2B58A /* DGBBookListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7B76751FFDC28200B2B58A /* DGBBookListTableViewCell.m */; };
@@ -74,8 +74,6 @@
 		CE29F46B1FFB327A00493711 /* DGBBook.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBook.m; sourceTree = "<group>"; };
 		CE29F4721FFB4D4900493711 /* AladinAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AladinAPI.h; sourceTree = "<group>"; };
 		CE29F4731FFB4D4900493711 /* AladinAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AladinAPI.m; sourceTree = "<group>"; };
-		CE29F4751FFB62AA00493711 /* AladinConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AladinConfig.h; sourceTree = "<group>"; };
-		CE29F4761FFB62AA00493711 /* AladinConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AladinConfig.m; sourceTree = "<group>"; };
 		CE51E3C32005B0970082662A /* DGBBookCoverCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookCoverCollectionViewCell.h; sourceTree = "<group>"; };
 		CE51E3C42005B0970082662A /* DGBBookCoverCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookCoverCollectionViewCell.m; sourceTree = "<group>"; };
 		CE51E3C82005B1470082662A /* UICollectionViewCell+DGBCellNameGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+DGBCellNameGenerator.h"; sourceTree = "<group>"; };
@@ -97,6 +95,8 @@
 		CE6027081FF4AE760089F2CA /* DoksugongbangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoksugongbangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE60270C1FF4AE760089F2CA /* DoksugongbangUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoksugongbangUITests.m; sourceTree = "<group>"; };
 		CE60270E1FF4AE760089F2CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE693FCF200C745A00115075 /* AladinConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AladinConfig.h; sourceTree = SOURCE_ROOT; };
+		CE693FD0200C745A00115075 /* AladinConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AladinConfig.m; sourceTree = SOURCE_ROOT; };
 		CE780DFB2004B51100486C33 /* DGBBookDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGBBookDetailView.h; sourceTree = "<group>"; };
 		CE780DFC2004B51100486C33 /* DGBBookDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGBBookDetailView.m; sourceTree = "<group>"; };
 		CE780DFE2004CBAB00486C33 /* NSString+DGBHTMLEncoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+DGBHTMLEncoder.h"; sourceTree = "<group>"; };
@@ -208,8 +208,8 @@
 		CE29F4701FFB4D1A00493711 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				CE29F4751FFB62AA00493711 /* AladinConfig.h */,
-				CE29F4761FFB62AA00493711 /* AladinConfig.m */,
+				CE693FCF200C745A00115075 /* AladinConfig.h */,
+				CE693FD0200C745A00115075 /* AladinConfig.m */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -503,6 +503,7 @@
 				CEE415C820036D87000962E7 /* DGBDataLoader.m in Sources */,
 				CE9457961FFCB25E00D1D5D0 /* DGBBookTitleTableViewCell.m in Sources */,
 				CE780E002004CBAC00486C33 /* NSString+DGBHTMLEncoder.m in Sources */,
+				CE693FD1200C745A00115075 /* AladinConfig.m in Sources */,
 				CE6026F81FF4AE760089F2CA /* main.m in Sources */,
 				CE82AD081FFF6DD2005A3B73 /* UITableViewCell+DGBCellNameGenerator.m in Sources */,
 				CE51E3C62005B0970082662A /* DGBBookCoverCollectionViewCell.m in Sources */,
@@ -518,7 +519,6 @@
 				CEE415C5200369C0000962E7 /* DGBImageStore.m in Sources */,
 				CE51E3CD2005D2FC0082662A /* DGBBookCoverHorizontalTableViewCell.m in Sources */,
 				CE94579C1FFCC8F400D1D5D0 /* DGBBookListViewController.m in Sources */,
-				CE29F4771FFB62AA00493711 /* AladinConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

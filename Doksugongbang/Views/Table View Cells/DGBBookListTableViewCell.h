@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class DGBBookMainView;
+@class DGBBook;
 
 @interface DGBBookListTableViewCell : UITableViewCell
 
-#pragma mark - Public Properties
+#pragma mark - Public Methods
 
-@property (strong, nonatomic) DGBBookMainView *bookMainView;
+- (void)updateBook:(DGBBook *)book;
 
 @end

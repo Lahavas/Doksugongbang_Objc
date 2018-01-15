@@ -8,6 +8,15 @@
 
 #import "DGBBookListTableViewCell.h"
 #import "DGBBookMainView.h"
+#import "DGBBook.h"
+
+@interface DGBBookListTableViewCell ()
+
+#pragma mark - Private Properties
+
+@property (strong, nonatomic) DGBBookMainView *bookMainView;
+
+@end
 
 @implementation DGBBookListTableViewCell
 
@@ -55,6 +64,12 @@
                                               [self.bookMainView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
                                               [self.bookMainView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
                                               [self.bookMainView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor]]];
+}
+
+#pragma mark - Public Properties
+
+- (void)updateBook:(DGBBook *)book {
+    [self.bookMainView setContentsWithBook:book];
 }
 
 @end

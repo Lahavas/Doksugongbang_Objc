@@ -142,8 +142,7 @@
                                                                      forIndexPath:indexPath];
     
     DGBBook *book = self.bookList[indexPath.row];
-    
-    [cell.bookMainView setContentsWithBook:book];
+    [cell updateBook:book];
     
     return cell;
 }
